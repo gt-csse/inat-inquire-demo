@@ -264,16 +264,70 @@ style: |
   section::marker {
     color: var(--accent);
   }
+
+  section.snapshot h1 {
+    font-size: 56px;
+  }
+
+  section.snapshot h2 {
+    min-height: 50px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    padding: 7px 18px 8px 16px;
+    font-size: 36px;
+  }
+
+  section.snapshot h1 + p,
+  section.snapshot h2 + p {
+    max-width: 560px;
+    margin-bottom: 14px;
+    font-size: 24px;
+    line-height: 1.28;
+  }
+
+  section.snapshot ul {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  section.snapshot li {
+    min-height: 0;
+    border-radius: 14px;
+    padding: 8px 14px 8px 38px;
+    font-size: 20px;
+    line-height: 1.24;
+  }
+
+  section.snapshot li::before {
+    left: 15px;
+    top: 17px;
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 0 5px var(--accent-soft);
+  }
+
+  section.snapshot code {
+    border-radius: 12px;
+    padding: 2px 6px;
+    font-size: 0.76em;
+  }
+
+  section.mobile-snapshot::after {
+    inset: auto auto 36px 42px !important;
+  }
 ---
+
+<!-- _class: snapshot -->
+
+![bg right:48% contain](assets/01-director-overview.png)
 
 # iNat x INQUIRE: Problem
 
-Biodiversity image collections become useful only when source data, metadata,
-embeddings, search behavior, and evidence stay connected.
+Biodiversity image collections become useful when source data, metadata, embeddings, search behavior, and evidence stay connected.
 
-- New scientific images need to become searchable without losing provenance.
-- Research teams need a path from prototype search to operated infrastructure.
-- Sponsors need proof that the approach is real, measurable, and reusable.
+- New images become searchable without losing provenance.
+- Researchers get a path from prototype to operated infrastructure.
+- Sponsors see measurable, reusable evidence.
 
 ---
 
@@ -293,49 +347,54 @@ HF / iNaturalist -> MinIO -> Ray -> embeddings -> Qdrant -> portal
 
 ## Demo Outcome
 
+<!-- _class: snapshot -->
+
+![bg right:52% contain](assets/02-director-search-results.png)
+
 The live path shows the searchable corpus changing during the presentation.
 
-```text
-Ingest batch 1 -> Search -> Append batch 2 -> Same-query rerun
-```
-
-| Proof point | Captured value |
-| --- | --- |
-| Query | `nudibranch` |
-| Batch 1 collection size | `24` vectors |
-| Batch 2 collection size | `48` vectors |
-| First result after append | `hf-inat/batch-2/.../516.jpg` |
+- Flow: ingest batch 1, search, append batch 2, rerun.
+- Query: `nudibranch`
+- Collection grows from `24` to `48` vectors.
+- Append result key: `batch-2/.../516.jpg`
 
 ---
 
 ## Evidence
 
+<!-- _class: snapshot -->
+
+![bg right:52% contain](assets/03-researcher-source-trace.png)
+
 Every claim is tied to an artifact a reviewer can inspect.
 
-| Claim | Evidence |
-| --- | --- |
-| Source data is real | HF dataset IDs, iNaturalist photo IDs, image URLs, licenses |
-| Ingestion is operational | Batch scripts, MinIO keys, elapsed time, uploaded bytes |
-| Search is traceable | Ranked results, scores, object keys, dimensions, source links |
-| Delivery is reproducible | Runbook, technical reference, validation script, fallback board |
+- Source data: HF dataset IDs, iNaturalist photo IDs, image URLs, licenses.
+- Ingestion: batch scripts, MinIO keys, elapsed time, uploaded bytes.
+- Search: ranked results, scores, object keys, dimensions, source links.
+- Delivery: runbook, technical reference, validation script, fallback board.
 
 ---
 
 ## Metrics
 
+<!-- _class: snapshot -->
+
+![bg right:52% contain](assets/04-rse-review-and-scale.png)
+
 Use these as captured demo evidence, not production SLOs.
 
-| Metric | Value | Source |
-| --- | --- | --- |
-| Added vectors in live append | `24` | runtime batch summaries |
-| Large-run ingest rate | `37.8 images/sec` | metrics highlight |
-| Search p95 latency | `418 ms` | benchmark summary |
-| Precision@10 | `0.72` | benchmark summary |
-| NDCG@10 | `0.81` | benchmark summary |
+- Live append adds `24` vectors.
+- Large-run ingest rate: `37.8 images/sec`.
+- Search p95 latency: `418 ms`.
+- Benchmark quality: `0.72` Precision@10 and `0.81` NDCG@10.
 
 ---
 
 ## Impact
+
+<!-- _class: snapshot mobile-snapshot -->
+
+![bg right:34% contain](assets/05-mobile-research-search.png)
 
 The demo turns a complex research software challenge into an investment-ready
 decision path.
