@@ -15,5 +15,5 @@ if ! command -v npx >/dev/null 2>&1; then
 fi
 
 mkdir -p "$(dirname "${OUTPUT}")"
-npx @marp-team/marp-cli "${SOURCE}" --pdf --output "${OUTPUT}"
+npx --yes @marp-team/marp-cli "${SOURCE}" --pdf --allow-local-files --output "${OUTPUT}"
 echo "Exported ${OUTPUT}"

@@ -24,6 +24,11 @@ Prerequisites:
 - [Node.js/npm](https://nodejs.org/en/download)
 - [Python 3](https://www.python.org/downloads/)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
+- Optional for PowerPoint slide export:
+  [LibreOffice](https://www.libreoffice.org/download/download-libreoffice/).
+  Marp CLI uses the `soffice` binary for `.pptx` conversion; Microsoft
+  PowerPoint alone is not enough. On macOS with Homebrew:
+  `brew install --cask libreoffice`.
 
 Create a workspace, clone both repositories into it, then run the demo:
 
@@ -162,7 +167,7 @@ portal/              React/Vite audience-mode portal
 server/              FastAPI backend-for-frontend
 docs/                Brief, runbook, architecture, and benchmark docs
 csse-demo-framework/ Reusable CSSE demo framework extracted from this package
-slides/              Marp presentation source and exported PDFs
+slides/              Marp presentation source and exported PDF/PPTX artifacts
 data/evidence/       Benchmark and metric summary artifacts
 recordings/metadata/ Shot lists, benchmark outputs, screenshots metadata
 infra/local/         Local pipeline compose overrides

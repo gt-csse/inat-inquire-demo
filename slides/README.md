@@ -2,6 +2,21 @@
 
 The slide sources are Marp-flavored Markdown files. Render them with
 `@marp-team/marp-cli` through `npx` so a local Marp install is not required.
+The deck references tracked screenshot assets in `slides/assets/`, so export
+commands include `--allow-local-files`.
+
+## Prerequisites
+
+- Node.js/npm for `npx`.
+- LibreOffice for PowerPoint export. Marp CLI uses the `soffice` binary when
+  converting to `.pptx`; Microsoft PowerPoint alone does not provide that
+  converter.
+
+On macOS with Homebrew:
+
+```bash
+brew install --cask libreoffice
+```
 
 ## Render HTML
 
@@ -10,6 +25,7 @@ From the repository root:
 ```bash
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
+  --allow-local-files \
   --output slides/inat-inquire-demo.marp.html
 ```
 
@@ -18,6 +34,7 @@ From this `slides/` folder:
 ```bash
 npx --yes @marp-team/marp-cli \
   inat-inquire-demo.marp.md \
+  --allow-local-files \
   --output inat-inquire-demo.marp.html
 ```
 
@@ -27,12 +44,14 @@ when a deck needs them.
 
 ## Export PowerPoint
 
-Yes. Marp CLI exports PowerPoint as `.pptx`:
+Yes. Marp CLI exports PowerPoint as `.pptx`. This requires LibreOffice's
+`soffice` binary to be installed and discoverable on `PATH`:
 
 ```bash
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --pptx \
+  --allow-local-files \
   --output slides/inat-inquire-demo.pptx
 ```
 
@@ -43,7 +62,20 @@ npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --pptx \
   --pptx-editable \
+  --allow-local-files \
   --output slides/inat-inquire-demo.editable.pptx
+```
+
+If Marp reports `LibreOffice soffice binary could not be found` on macOS after
+installing LibreOffice, run the command with LibreOffice on `PATH`:
+
+```bash
+PATH="/opt/homebrew/bin:/Applications/LibreOffice.app/Contents/MacOS:$PATH" \
+npx --yes @marp-team/marp-cli \
+  slides/inat-inquire-demo.marp.md \
+  --pptx \
+  --allow-local-files \
+  --output slides/inat-inquire-demo.pptx
 ```
 
 ## Other Useful Exports
@@ -54,6 +86,7 @@ PDF:
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --pdf \
+  --allow-local-files \
   --output slides/inat-inquire-demo.pdf
 ```
 
@@ -63,6 +96,7 @@ PNG image of the first slide:
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --image png \
+  --allow-local-files \
   --output slides/inat-inquire-demo.png
 ```
 
@@ -72,9 +106,6 @@ PNG images for every slide:
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --images png \
+  --allow-local-files \
   --output slides/inat-inquire-demo
 ```
-
-If a deck references local image files, add `--allow-local-files` to the export
-command.
-
