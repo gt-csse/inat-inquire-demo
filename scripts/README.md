@@ -7,26 +7,29 @@ deployment pipeline.
 ## Normal Operator Flow
 
 ```bash
-./scripts/bootstrap.sh
-./scripts/live-pipeline-up.sh
-./scripts/local-live.sh
+make demo
 # After the first portal search:
-./scripts/live-ingest-batch.sh 2
-./scripts/live-pipeline-down.sh
+make batch-2
+make down
 ```
 
 Run validation before rehearsals or handoff:
 
 ```bash
-./scripts/validate.sh
+make validate
 ```
+
+Run `make help` from the repository root for the complete command list. The
+Makefile wraps these scripts, and `make pipeline`/`./scripts/live-pipeline-up.sh`
+automatically builds the required local `inatinq/pipeline-base:0.1.0` image when
+it is missing. Use `make docker-build-base` to force a rebuild.
 
 ## Script Catalog
 
 | Script | Purpose | Normal caller |
 | --- | --- | --- |
 | `bootstrap.sh` | Creates `.env` when missing, installs backend dependencies with `uv`, and installs portal dependencies with `npm`. | Human operator after a fresh clone. |
-| `live-pipeline-up.sh` | Starts the source pipeline Docker stack, waits for API and MinIO readiness, resets the demo Qdrant collection by default, and ingests batch 1. | Human operator before opening the portal. |
+| `live-pipeline-up.sh` | Ensures the source pipeline base image exists, starts the source pipeline Docker stack, waits for API and MinIO readiness, resets the demo Qdrant collection by default, and ingests batch 1. | Human operator before opening the portal. |
 | `local-live.sh` | Runs the FastAPI backend and Vite portal against the local live pipeline. | Human operator during the demo. |
 | `live-ingest-batch.sh` | Seeds one HF-sampled iNaturalist image batch, submits the Ray ingestion job, verifies search, and writes runtime evidence. | `live-pipeline-up.sh` for batch 1; human operator for batch 2. |
 | `live-pipeline-down.sh` | Stops the source pipeline Docker stack. | Human operator after the demo. |
