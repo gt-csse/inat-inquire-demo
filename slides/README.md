@@ -2,7 +2,7 @@
 
 The slide sources are Marp-flavored Markdown files. Render them with
 `@marp-team/marp-cli` through `npx` so a local Marp install is not required.
-The deck references tracked screenshot assets in `slides/assets/`, so export
+The deck references tracked visual assets in `slides/assets/`, so export
 commands include `--allow-local-files`.
 
 ## Prerequisites
@@ -51,19 +51,20 @@ Yes. Marp CLI exports PowerPoint as `.pptx`. This requires LibreOffice's
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --pptx \
+  --pptx-editable \
   --allow-local-files \
   --output slides/inat-inquire-demo.pptx
 ```
 
-For an experimental editable PowerPoint export:
+For a rasterized fallback export, omit `--pptx-editable`. That mode is more
+visually exact but turns slide content into uneditable images.
 
 ```bash
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --pptx \
-  --pptx-editable \
   --allow-local-files \
-  --output slides/inat-inquire-demo.editable.pptx
+  --output slides/inat-inquire-demo.rasterized.pptx
 ```
 
 If Marp reports `LibreOffice soffice binary could not be found` on macOS after
@@ -74,6 +75,7 @@ PATH="/opt/homebrew/bin:/Applications/LibreOffice.app/Contents/MacOS:$PATH" \
 npx --yes @marp-team/marp-cli \
   slides/inat-inquire-demo.marp.md \
   --pptx \
+  --pptx-editable \
   --allow-local-files \
   --output slides/inat-inquire-demo.pptx
 ```

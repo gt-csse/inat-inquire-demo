@@ -2,29 +2,25 @@
 marp: true
 theme: default
 paginate: true
-title: iNat x INQUIRE Demo
-description: Partner demo for iNat x INQUIRE semantic search and scalable ingestion
+size: 16:9
+title: CSSE Director View
+description: Director-level CSSE overview using the iNaturalist x INQUIRE engagement as a proof point
 style: |
   :root {
-    --font-roboto: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-roboto-condensed: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
-    --font-roboto-slab: "Roboto Slab", Georgia, "Times New Roman", serif;
-    --ink: #18222d;
-    --muted: #5d6875;
-    --soft: #eef2ed;
-    --surface: #ffffff;
-    --surface-2: #f7f8f3;
-    --line: #d9dfd5;
+    --font-sans: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-condensed: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+    --font-serif: "Roboto Slab", Georgia, "Times New Roman", serif;
     --navy: #003057;
     --blue: #004f9f;
     --gold: #b3a369;
     --orange: #f95e10;
     --green: #216e4e;
-    --rose: #9a1b39;
-    --accent: var(--orange);
-    --accent-soft: #fff0df;
-    --shadow: 0 24px 70px rgba(0, 48, 87, 0.14);
-    --shadow-soft: 0 12px 36px rgba(24, 34, 45, 0.08);
+    --ink: #18222d;
+    --muted: #586574;
+    --surface: #ffffff;
+    --paper: #f7f8f3;
+    --line: #d8dfd5;
+    --soft-orange: #fff0e5;
   }
 
   section {
@@ -32,385 +28,408 @@ style: |
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    border: 1px solid rgba(0, 48, 87, 0.12);
     background:
-      linear-gradient(90deg, var(--gold), var(--orange), var(--green), var(--blue)) top / 100% 6px no-repeat,
-      linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(247, 248, 243, 0.86)),
-      linear-gradient(90deg, rgba(0, 48, 87, 0.04) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(0, 48, 87, 0.035) 1px, transparent 1px),
-      var(--soft);
-    background-size: 100% 6px, auto, 44px 44px, 44px 44px, auto;
+      linear-gradient(90deg, var(--gold), var(--orange), var(--green), var(--blue)) top / 100% 7px no-repeat,
+      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,248,243,0.92)),
+      var(--paper);
     color: var(--ink);
-    font-family: var(--font-roboto);
-    padding: 66px 76px 58px;
+    font-family: var(--font-sans);
+    padding: 54px 72px 48px;
   }
 
-  section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: linear-gradient(90deg, var(--gold), var(--orange), var(--green), var(--blue));
+  section::after {
+    content: attr(data-marpit-pagination) !important;
+    position: absolute !important;
+    inset: auto 34px 28px auto !important;
+    min-width: 30px !important;
+    height: 30px !important;
+    display: inline-grid !important;
+    place-items: center !important;
+    border: 1px solid rgba(0, 48, 87, 0.16);
+    border-radius: 999px !important;
+    background: rgba(255,255,255,0.82);
+    color: var(--navy);
+    padding: 0 !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
   }
 
   h1,
-  h2 {
+  h2,
+  h3 {
+    margin: 0;
     color: var(--navy);
     letter-spacing: 0;
   }
 
   h1 {
-    max-width: 900px;
-    margin: 0 0 20px;
-    font-family: var(--font-roboto-slab);
-    font-size: 66px;
-    line-height: 1.02;
+    max-width: 1080px;
+    font-family: var(--font-serif);
+    font-size: 72px;
+    line-height: 0.98;
   }
 
   h2 {
-    display: inline-flex;
-    width: fit-content;
-    align-items: center;
-    min-height: 58px;
-    margin: 0 0 24px;
-    border: 1px solid rgba(0, 48, 87, 0.12);
-    border-left: 6px solid var(--accent);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: var(--shadow-soft);
-    padding: 8px 22px 9px 18px;
-    color: var(--navy);
-    font-family: var(--font-roboto-condensed);
-    font-size: 42px;
+    margin-bottom: 24px;
+    font-family: var(--font-condensed);
+    font-size: 44px;
     line-height: 1.05;
     font-weight: 900;
   }
 
-  h1 + p,
-  h2 + p {
-    max-width: 940px;
-    color: var(--muted);
-    font-size: 30px;
-    font-weight: 680;
-    line-height: 1.38;
-  }
-
-  p,
-  li,
-  td,
-  th {
-    font-size: 24px;
-    line-height: 1.38;
+  h3 {
+    margin: 10px 0 8px;
+    font-family: var(--font-condensed);
+    font-size: 27px;
+    font-weight: 900;
   }
 
   p {
-    margin: 0 0 22px;
+    max-width: 900px;
+    margin: 0 0 19px;
+    color: var(--muted);
+    font-size: 26px;
+    line-height: 1.34;
+    font-weight: 650;
+  }
+
+  strong {
+    color: var(--navy);
+    font-weight: 900;
+  }
+
+  a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 850;
+  }
+
+  code {
+    border: 1px solid rgba(0,48,87,0.15);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.76);
+    color: var(--navy);
+    padding: 2px 7px;
+    font-size: 0.78em;
+    font-weight: 850;
   }
 
   ul {
     display: grid;
-    gap: 12px;
-    margin: 20px 0 0;
+    gap: 10px;
+    margin: 16px 0 0;
     padding: 0;
   }
 
   li {
     position: relative;
     list-style: none;
-    min-height: 48px;
-    border: 1px solid rgba(0, 48, 87, 0.12);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.84);
-    box-shadow: var(--shadow-soft);
-    padding: 11px 18px 11px 48px;
+    border: 1px solid rgba(0,48,87,0.13);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.86);
+    padding: 10px 16px 10px 42px;
     color: var(--navy);
+    font-size: 23px;
+    line-height: 1.25;
     font-weight: 760;
   }
 
   li::before {
     content: "";
     position: absolute;
-    left: 18px;
-    top: 21px;
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: var(--accent);
-    box-shadow: 0 0 0 6px var(--accent-soft);
-  }
-
-  strong {
-    color: var(--navy);
-  }
-
-  code,
-  pre {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  }
-
-  code {
-    border: 1px solid rgba(0, 48, 87, 0.12);
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--navy);
-    padding: 3px 9px;
-    font-size: 0.82em;
-    font-weight: 850;
-  }
-
-  pre {
-    margin: 22px 0 22px;
-    border: 1px solid rgba(0, 48, 87, 0.13);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.88);
-    box-shadow: var(--shadow-soft);
-    padding: 19px 22px;
-    color: var(--navy);
-  }
-
-  pre code {
-    display: block;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    padding: 0;
-    color: var(--navy);
-    font-size: 26px;
-    line-height: 1.35;
-    font-weight: 820;
+    left: 17px;
+    top: 20px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 0 5px var(--soft-orange);
   }
 
   table {
     width: 100%;
-    margin-top: 18px;
-    border-collapse: separate;
-    border-spacing: 0;
-    border: 1px solid rgba(0, 48, 87, 0.12);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.88);
-    box-shadow: var(--shadow-soft);
+    margin: 12px 0 0;
+    border-collapse: collapse;
+    table-layout: fixed;
     overflow: hidden;
+    border: 1px solid rgba(0,48,87,0.13);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.88);
+  }
+
+  th,
+  td {
+    border-bottom: 1px solid rgba(0,48,87,0.11);
+    height: 62px;
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 18px;
+    line-height: 1.18;
   }
 
   th {
     background: var(--navy);
     color: var(--surface);
-    font-size: 19px;
+    height: 34px;
+    font-size: 14px;
     font-weight: 900;
     text-transform: uppercase;
   }
 
   td {
     color: var(--navy);
-    font-weight: 760;
-  }
-
-  th,
-  td {
-    border: 0;
-    border-bottom: 1px solid rgba(0, 48, 87, 0.1);
-    padding: 12px 16px;
-    vertical-align: top;
+    font-weight: 730;
   }
 
   tr:last-child td {
     border-bottom: 0;
   }
 
-  td:first-child {
+  blockquote {
+    margin: 18px 0 0;
+    border-left: 6px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    background: rgba(255,255,255,0.78);
+    padding: 9px 14px;
     color: var(--muted);
-    font-size: 21px;
-    font-weight: 850;
-    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 1.28;
+    font-weight: 700;
   }
 
-  section:nth-of-type(2),
-  section:nth-of-type(5) {
-    --accent: var(--green);
-    --accent-soft: #e7f5e8;
-  }
-
-  section:nth-of-type(3),
-  section:nth-of-type(6) {
-    --accent: var(--blue);
-    --accent-soft: #e4f0ff;
-  }
-
-  section:nth-of-type(1) {
-    justify-content: flex-start;
-    padding-top: 104px;
-  }
-
-  section::after {
-    content: attr(data-marpit-pagination) !important;
-    position: absolute !important;
-    inset: auto 42px 36px auto !important;
-    min-width: 34px !important;
-    height: 34px !important;
-    display: inline-grid !important;
-    place-items: center !important;
-    border: 1px solid rgba(0, 48, 87, 0.12);
-    border-radius: 999px !important;
-    background: rgba(255, 255, 255, 0.74);
-    color: var(--navy);
-    padding: 0 !important;
-    font-size: 16px !important;
-    font-weight: 900 !important;
-    line-height: 1 !important;
-  }
-
-  section::marker {
-    color: var(--accent);
-  }
-
-  section.snapshot h1 {
-    font-size: 56px;
-  }
-
-  section.snapshot h2 {
-    min-height: 50px;
-    margin-bottom: 16px;
-    border-radius: 14px;
-    padding: 7px 18px 8px 16px;
-    font-size: 36px;
-  }
-
-  section.snapshot h1 + p,
-  section.snapshot h2 + p {
-    max-width: 560px;
-    margin-bottom: 14px;
-    font-size: 24px;
+  blockquote p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 18px;
     line-height: 1.28;
   }
 
-  section.snapshot ul {
-    gap: 8px;
-    margin-top: 12px;
+  img {
+    max-width: 100%;
   }
 
-  section.snapshot li {
-    min-height: 0;
-    border-radius: 14px;
-    padding: 8px 14px 8px 38px;
+  section.title {
+    justify-content: flex-end;
+    background:
+      linear-gradient(90deg, var(--gold), var(--orange), var(--green), var(--blue)) top / 100% 7px no-repeat,
+      #001d33;
+    padding: 56px 72px 66px;
+  }
+
+  section.title h1,
+  section.title h2,
+  section.title p,
+  section.title strong {
+    color: #ffffff;
+  }
+
+  section.title h1 {
+    margin-top: 170px;
+    font-size: 88px;
+  }
+
+  section.title h2 {
+    margin-top: 4px;
+    margin-bottom: 18px;
+    color: #ffcf5f;
+    font-size: 52px;
+  }
+
+  section.title p {
+    max-width: 790px;
+    color: rgba(255,255,255,0.9);
+    font-size: 30px;
+  }
+
+  section.title img:not(.marpit-background) {
+    position: absolute;
+    top: 54px;
+    left: 72px;
+  }
+
+  table td:first-child {
+    font-weight: 900;
+  }
+
+  table th:first-child,
+  table td:first-child {
+    width: 16%;
+  }
+
+  section.cta table th,
+  section.cta table td {
+    width: 25%;
+  }
+
+  section.demo {
+    padding-right: 520px;
+    background:
+      linear-gradient(90deg, var(--gold), var(--orange), var(--green), var(--blue)) top / 100% 7px no-repeat,
+      url("assets/director-outline/inquire-tasks.png") right 34px center / 500px auto no-repeat,
+      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,248,243,0.92)),
+      var(--paper);
+  }
+
+  section.demo p {
+    max-width: 560px;
+  }
+
+  section.demo h2 {
+    width: calc(100% + 420px);
+    max-width: 1080px;
+  }
+
+  section.demo li {
     font-size: 20px;
-    line-height: 1.24;
   }
 
-  section.snapshot li::before {
-    left: 15px;
-    top: 17px;
-    width: 8px;
-    height: 8px;
-    box-shadow: 0 0 0 5px var(--accent-soft);
+  section.team {
+    display: grid;
+    place-items: center;
+    padding: 22px 42px 18px;
+    background: #f7f8f3;
   }
 
-  section.snapshot code {
-    border-radius: 12px;
-    padding: 2px 6px;
-    font-size: 0.76em;
+  section.team p {
+    margin: 0;
   }
 
-  section.mobile-snapshot::after {
-    inset: auto auto 36px 42px !important;
+  section.team blockquote {
+    position: absolute;
+    left: 52px;
+    bottom: 28px;
+    margin: 0;
+    max-width: 720px;
+    font-size: 15px;
   }
----
 
-<!-- _class: snapshot -->
+  section.team blockquote p {
+    font-size: 15px;
+  }
 
-![bg right:48% contain](assets/01-director-overview.png)
+  section.cta h1 {
+    max-width: 1140px;
+    margin-bottom: 20px;
+    font-size: 56px;
+    line-height: 1.02;
+  }
 
-# iNat x INQUIRE: Problem
-
-Biodiversity image collections become useful when source data, metadata, embeddings, search behavior, and evidence stay connected.
-
-- New images become searchable without losing provenance.
-- Researchers get a path from prototype to operated infrastructure.
-- Sponsors see measurable, reusable evidence.
-
----
-
-## CSSE Approach
-
-CSSE built a representative slice that makes the scientific workflow inspectable.
-
-```text
-HF / iNaturalist -> MinIO -> Ray -> embeddings -> Qdrant -> portal
-```
-
-- Reuse the existing `inquire-vector-search` API rather than changing it.
-- Add demo-safe scripts, backend adaptation, evidence loading, and validation.
-- Present one system at Director, PI / Researcher, and RSE / Architect depths.
+  section.cta p {
+    max-width: 960px;
+    margin-top: 28px;
+    color: var(--navy);
+    font-size: 34px;
+    line-height: 1.22;
+    font-weight: 850;
+  }
 
 ---
 
-## Demo Outcome
+<!-- _class: title -->
 
-<!-- _class: snapshot -->
+![w:240](assets/director-outline/gt-logo-oneline-white.svg)
 
-![bg right:52% contain](assets/02-director-search-results.png)
+# CSSE
 
-The live path shows the searchable corpus changing during the presentation.
+## A Director's View
 
-- Flow: ingest batch 1, search, append batch 2, rerun.
-- Query: `nudibranch`
-- Collection grows from `24` to `48` vectors.
-- Append result key: `batch-2/.../516.jpg`
+From research software risk to measurable, inspectable outcomes.
 
----
-
-## Evidence
-
-<!-- _class: snapshot -->
-
-![bg right:52% contain](assets/03-researcher-source-trace.png)
-
-Every claim is tied to an artifact a reviewer can inspect.
-
-- Source data: HF dataset IDs, iNaturalist photo IDs, image URLs, licenses.
-- Ingestion: batch scripts, MinIO keys, elapsed time, uploaded bytes.
-- Search: ranked results, scores, object keys, dimensions, source links.
-- Delivery: runbook, technical reference, validation script, fallback board.
+**Example engagement: iNaturalist x INQUIRE**
 
 ---
 
-## Metrics
+<!-- _class: risk -->
 
-<!-- _class: snapshot -->
+## Software Risks in Scientific Research
 
-![bg right:52% contain](assets/04-rse-review-and-scale.png)
+Research software risk is often invisible until a team tries to use it beyond the prototype.
 
-Use these as captured demo evidence, not production SLOs.
-
-- Live append adds `24` vectors.
-- Large-run ingest rate: `37.8 images/sec`.
-- Search p95 latency: `418 ms`.
-- Benchmark quality: `0.72` Precision@10 and `0.81` NDCG@10.
-
----
-
-## Impact
-
-<!-- _class: snapshot mobile-snapshot -->
-
-![bg right:34% contain](assets/05-mobile-research-search.png)
-
-The demo turns a complex research software challenge into an investment-ready
-decision path.
-
-- Directors see a working before/after outcome in 2-3 minutes.
-- PIs see source data, ingestion, embeddings, indexing, and traceability.
-- RSEs can inspect contracts, scripts, metrics, tests, and recovery paths.
-- Future CSSE demos can reuse the artifact framework without inheriting this UI.
+| Risk | What It Looks Like | Director Impact |
+| --- | --- | --- |
+| Intangible outcomes | Demo code, notebooks, or one-off scripts that do not transfer into operation | Hard to fund, evaluate, or reuse |
+| Unclear impact | Users cannot tell whether the software improves the research workflow | Adoption and stakeholder trust stall |
+| Low quality | Fragile pipelines, missing provenance, weak tests, no scale path | Reproducibility and sustainability become unfunded liabilities |
 
 ---
 
-## Collaboration Ask
+<!-- _class: mitigate -->
 
-Bring CSSE in when research ambition depends on software that must scale,
-measure up, and survive inspection.
+## GT CSSE Mitigates Software Risks
 
-- Select the next scientific dataset and quality gates.
-- Decide the operating target: local proof, hosted pilot, or managed service.
-- Fund the next increment around ingestion scale, evaluation, and operations.
+CSSE turns research ambition into software evidence a sponsor can inspect.
+
+| Tangible Outcomes | Real Impact | Production Quality |
+| --- | --- | --- |
+| Working systems, not just diagrams | Workflow evidence tied to scientific use | Source traceability, tests, metrics, and runbooks |
+| Clear artifacts for PIs, RSEs, and directors | Usability, maintainability, and operational fit | Reproducibility, scalability, and reviewable architecture |
+| Portfolio proof points across engagements | A basis for the next investment decision | A credible path from local proof to managed service |
+
+> Project portfolio: [gt-csse.github.io/project-showcase](https://gt-csse.github.io/project-showcase/#/projects)
+
+---
+
+<!-- _class: example -->
+
+## Example: iNaturalist x INQUIRE Engagement
+
+**Risk:** support natural-language semantic search over fast-growing biodiversity imagery.
+
+- iNaturalist has reached **300M observations** and continues to grow.
+- INQUIRE frames the retrieval challenge around **250 expert ecological queries** over **5M iNat24 images**.
+- Fresh data, provenance, retrieval quality, and scale all have to be visible.
+- CSSE delivered a path that connects ingestion, embeddings, vector search, metrics, and review artifacts.
+
+> Public context: iNaturalist milestone blog, March 20, 2026; INQUIRE benchmark site.
+
+---
+
+<!-- _class: demo -->
+
+## Live Demo / Video
+
+The demo makes the risk visible as an operating workflow, not a static claim.
+
+- Start with a bounded collection and run a natural-language query.
+- Append a new batch without rebuilding the system.
+- Rerun the same query and inspect changed ranked results.
+- Review scores, latency, source URLs, object keys, dimensions, and evidence artifacts.
+
+> Fallback path: captured evidence shows the same before/after workflow if the live system is not available.
+
+---
+
+<!-- _class: value -->
+
+## GT CSSE Delivered Value
+
+| Dimension | Evidence From This Engagement | Why It Matters |
+| --- | --- | --- |
+| Outcome | FastAPI search, Ray ingestion, Qdrant vectors, SigLIP2/Infinity embeddings; source metadata preserved | Turns a research retrieval idea into a sponsor-visible workflow |
+| Impact | **20,000** vectors; **37.8 images/sec** ingest; **418 ms** p95 search; **41%** cache-hit signal | Grounds the demo in scale and performance evidence |
+| Quality | 50-query benchmark, Prometheus metrics, checkpoint resume, DLQ replay, quality gates | Makes retrieval behavior and operations reviewable |
+| Resources and timeline |  |  |
+
+> Evidence sources: Inquire-vector-search GitHub repo, `data/evidence/*.json`, `docs/technical-reference.md`.
+
+---
+
+<!-- _class: team -->
+
+![w:1110](assets/director-outline/csse-team-capabilities.png)
+
+> Team roster and source images: [ssecenter.cc.gatech.edu/people](https://ssecenter.cc.gatech.edu/people/)
+
+---
+
+<!-- _class: cta -->
+
+# Bring CSSE in when research outcomes depend on software quality.
+
+| Speed | Scale | Reproduce | Use |
+| --- | --- | --- | --- |
+| Latency and throughput evidence | Fresh data and managed ingestion | Source trace, tests, and runbooks | Research workflow fit |
+
+Choose the next dataset, quality gates, and operating target.
