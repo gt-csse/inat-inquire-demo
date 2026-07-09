@@ -31,21 +31,24 @@ cd inat-inquire-demo
 Bootstrap the demo repo:
 
 ```bash
-[ -f .env ] || cp .env.example .env
-./scripts/bootstrap.sh
+make bootstrap
 ```
 
 Start the source pipeline stack, reset `inat-demo-live`, seed batch 1, ingest it,
 and verify search:
 
 ```bash
-./scripts/live-pipeline-up.sh
+make pipeline
 ```
+
+The pipeline start command builds the required local
+`inatinq/pipeline-base:0.1.0` Docker image when it is missing. Use
+`make docker-build-base` when you need to force a rebuild before rehearsal.
 
 Start the portal against the live pipeline:
 
 ```bash
-./scripts/local-live.sh
+make portal
 ```
 
 Open:
@@ -222,11 +225,11 @@ Set these in `.env` before running `./scripts/live-pipeline-up.sh` when needed:
 Stop the portal with `Ctrl-C`, then stop the pipeline stack:
 
 ```bash
-./scripts/live-pipeline-down.sh
+make down
 ```
 
 Run validation before delivery:
 
 ```bash
-./scripts/validate.sh
+make validate
 ```

@@ -38,15 +38,12 @@ cd inat-inquire-workspace
 git clone https://github.com/inaturalist/Inquire-vector-search.git
 git clone https://github.com/ketanbj/inat-inquire-demo.git
 cd inat-inquire-demo
-[ -f .env ] || cp .env.example .env
-./scripts/bootstrap.sh
-./scripts/live-pipeline-up.sh
-./scripts/local-live.sh
+make demo
 ```
 
 If the pipeline repo already lives somewhere else, set
-`INQUIRE_VECTOR_SEARCH_PATH` in `.env` before running
-`./scripts/live-pipeline-up.sh`.
+`INQUIRE_VECTOR_SEARCH_PATH` inline before running `make demo`, or run
+`make bootstrap`, edit `.env`, then run `make demo`.
 
 Then open:
 
@@ -108,28 +105,28 @@ inat-inquire-workspace/
    pipeline checkout:
 
    ```bash
-   [ -f .env ] || cp .env.example .env
+   make bootstrap
    # Optional when not using ../Inquire-vector-search:
    # edit INQUIRE_VECTOR_SEARCH_PATH in .env
-   ./scripts/bootstrap.sh
    ```
 
 3. Start the live pipeline and ingest batch 1:
 
    ```bash
-   ./scripts/live-pipeline-up.sh
+   make pipeline
    ```
 
    This starts the source pipeline from `../Inquire-vector-search`, exposes the
    pipeline API on `http://localhost:8010`, samples the first image batch from
    the `gt-csse` Hugging Face datasets, uploads it to MinIO, ingests it with
    Ray, prints ingestion metrics and a configurable cost estimate, and verifies
-   Qdrant search.
+   Qdrant search. On a first run, it also builds the required local
+   `inatinq/pipeline-base:0.1.0` image before starting Docker Compose.
 
 4. Start the portal:
 
    ```bash
-   ./scripts/local-live.sh
+   make portal
    ```
 
 5. Open the portal:
@@ -146,7 +143,7 @@ inat-inquire-workspace/
    `sea lions on rocks` as backups.
 
    ```bash
-   ./scripts/live-ingest-batch.sh 2
+   make batch-2
    ```
 
    Run the same query again. The new batch is seeded under a different MinIO
@@ -157,8 +154,12 @@ inat-inquire-workspace/
 7. Stop the portal with `Ctrl-C`. Stop the pipeline stack when finished:
 
    ```bash
-   ./scripts/live-pipeline-down.sh
+   make down
    ```
+
+The root `Makefile` is a convenience wrapper over the shell scripts. Use
+`make help` to list the available commands, including `make demo`,
+`make validate`, and the explicit `make docker-build-base` prerequisite rebuild.
 
 ## Repository Layout
 
@@ -222,7 +223,7 @@ cache invalidation endpoint after ingestion when that endpoint is available.
 Run the same checks used by CI:
 
 ```bash
-./scripts/validate.sh
+make validate
 ```
 
 The validation script checks evidence JSON, Python syntax, every shell script,

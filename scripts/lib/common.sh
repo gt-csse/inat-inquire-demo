@@ -95,6 +95,32 @@ set_pipeline_compose_context() {
   )
 }
 
+build_pipeline_base_image() {
+  local base_image="${1:-${PIPELINE_BASE_IMAGE:-inatinq/pipeline-base:0.1.0}}"
+  local base_dockerfile="zarf/docker/base/Dockerfile.pipeline-base"
+
+  if [ ! -f "${PIPELINE_DIR}/${base_dockerfile}" ]; then
+    echo "Pipeline base Dockerfile not found: ${PIPELINE_DIR}/${base_dockerfile}" >&2
+    echo "Check INQUIRE_VECTOR_SEARCH_PATH in ${ROOT_DIR}/.env." >&2
+    exit 1
+  fi
+
+  echo "Building pipeline base image ${base_image}."
+  (cd "${PIPELINE_DIR}" && docker build -f "${base_dockerfile}" -t "${base_image}" .)
+}
+
+ensure_pipeline_base_image() {
+  local base_image="${PIPELINE_BASE_IMAGE:-inatinq/pipeline-base:0.1.0}"
+
+  if docker image inspect "${base_image}" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  echo "Pipeline base image ${base_image} is missing; building it now."
+  echo "This can take several minutes on a first run."
+  build_pipeline_base_image "${base_image}"
+}
+
 resolve_from_root() {
   local candidate="$1"
   local absolute_path

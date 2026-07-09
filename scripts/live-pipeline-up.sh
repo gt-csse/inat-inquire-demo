@@ -21,6 +21,7 @@ set_pipeline_compose_context
 
 echo "Starting local pipeline stack from ${PIPELINE_DIR}"
 echo "Semantic cache enabled: ${DEMO_SEMANTIC_CACHE_ENABLED}"
+ensure_pipeline_base_image
 (cd "${PIPELINE_DIR}" && docker compose "${COMPOSE_ARGS[@]}" up -d --build --remove-orphans)
 
 wait_for_url "${PIPELINE_API_URL}/healthz" "Pipeline API" 60 "Pipeline API is ready."
