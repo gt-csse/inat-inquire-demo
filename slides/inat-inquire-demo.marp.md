@@ -347,11 +347,11 @@ From research software risk to measurable, inspectable outcomes.
 
 Research software risk is often invisible until a team tries to use it beyond the prototype.
 
-| Risk | What It Looks Like | Director Impact |
+| Risk | What It Looks Like | Team's Impact |
 | --- | --- | --- |
 | Intangible outcomes | Demo code, notebooks, or one-off scripts that do not transfer into operation | Hard to fund, evaluate, or reuse |
 | Unclear impact | Users cannot tell whether the software improves the research workflow | Adoption and stakeholder trust stall |
-| Low quality | Fragile pipelines, missing provenance, weak tests, no scale path | Reproducibility and sustainability become unfunded liabilities |
+| Low quality | Fragile pipelines, weak tests, no scale path | Reproducibility and sustainability is questionable |
 
 ---
 
@@ -363,7 +363,7 @@ CSSE turns research ambition into software evidence a sponsor can inspect.
 
 | Tangible Outcomes | Real Impact | Production Quality |
 | --- | --- | --- |
-| Working systems, not just diagrams | Workflow evidence tied to scientific use | Source traceability, tests, metrics, and runbooks |
+| Working systems, not just diagrams | Workflow evidence tied to scientific use | Source traceability, tests, and metrics |
 | Clear artifacts for PIs, RSEs, and directors | Usability, maintainability, and operational fit | Reproducibility, scalability, and reviewable architecture |
 | Portfolio proof points across engagements | A basis for the next investment decision | A credible path from local proof to managed service |
 
@@ -388,7 +388,7 @@ CSSE turns research ambition into software evidence a sponsor can inspect.
 
 <!-- _class: demo -->
 
-## Live Demo / Video
+## Live Demo / Video (Optional)
 
 The demo makes the risk visible as an operating workflow, not a static claim.
 
