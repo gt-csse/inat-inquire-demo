@@ -408,7 +408,7 @@ The demo makes the risk visible as an operating workflow, not a static claim.
 | Dimension | Evidence From This Engagement | Why It Matters |
 | --- | --- | --- |
 | Outcome | FastAPI search, Ray ingestion, Qdrant vectors, SigLIP2/Infinity embeddings; source metadata preserved | Turns a research retrieval idea into a sponsor-visible workflow |
-| Impact | **20,000** vectors; **37.8 images/sec** ingest; **418 ms** p95 search; **41%** cache-hit signal | Grounds the demo in scale and performance evidence |
+| Impact | **20,000** vectors; **37.8 images/sec** ingest; **418 ms** p95 search; **41%** cache-hit signal | Grounds the demo in reproducible performance and scale evidence |
 | Quality | 50-query benchmark, Prometheus metrics, checkpoint resume, DLQ replay, quality gates | Makes retrieval behavior and operations reviewable |
 | Resources and timeline |  |  |
 
