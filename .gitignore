@@ -15,4 +15,5 @@ slides/exports/*.pdf
 recordings/raw/
 recordings/exports/
 data/downloads/
+data/cache/
 data/runtime/
