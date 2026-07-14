@@ -206,11 +206,21 @@ Set these in `.env` before running `./scripts/live-pipeline-up.sh` when needed:
 | `DEMO_VERIFY_QUERY` | `nudibranch` | Query used by setup scripts for verification. |
 | `DEMO_SEMANTIC_CACHE_ENABLED` | `false` | Keeps same-query before/after searches from using stale cache. |
 | `DEMO_HF_IMAGES_PER_DATASET` | `8` | Number of resolved images to seed from each HF dataset. |
+| `DEMO_HF_CACHED` | `0` | Set to `1` after an online rehearsal to reuse cached source images with no Hugging Face or iNaturalist requests. |
+| `DEMO_HF_CACHE_DIR` | `data/cache/hf-inat` | Git-ignored rehearsal cache for images and per-offset manifests. |
 | `DEMO_COST_PER_1K_IMAGES_USD` | `0` | Optional cost assumption. |
 | `DEMO_COST_PER_COMPUTE_HOUR_USD` | `0` | Optional compute-hour assumption. |
 | `DEMO_REMOVE_VOLUMES` | `0` | Set to `1` before teardown to remove Docker volumes. |
 
 ## Fallbacks
+
+Before a live event, run batch 1 and batch 2 once while online. Successful seed
+runs automatically populate `data/cache/hf-inat/`. On the demo network, use
+`make demo-cached` and `make batch-2-cached`. The pipeline, MinIO, Ray, and
+Qdrant still run locally; only the external source downloads are replaced.
+During an online seed, a Dataset Viewer API failure automatically falls back to
+bounded Parquet reads from the main Hugging Face Hub before images are resolved
+from iNaturalist.
 
 | Failure | Action |
 | --- | --- |

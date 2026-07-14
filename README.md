@@ -79,6 +79,11 @@ rollback, metrics, and recovery paths. The RSE path also includes a
 self-guided run option through the Quick Start and operations runbook so an
 architect can reproduce the demo locally.
 
+For a network-resilient presentation, rehearse both batches once while online;
+this automatically fills the git-ignored source cache. Then use
+`make demo-cached` and `make batch-2-cached`. Cached mode does not contact
+Hugging Face or iNaturalist, while the local MinIO/Ray/Qdrant path remains live.
+
 ## Local Live Demo
 
 Prerequisites: Docker Desktop, Git, Node.js/npm, Python 3, and `uv`.

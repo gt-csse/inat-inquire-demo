@@ -18,6 +18,7 @@ import sys
 import time
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
@@ -45,6 +46,8 @@ IMAGE_EXTENSIONS = ("jpg", "jpeg", "png")
 INAT_PHOTO_BASE_URL = "https://inaturalist-open-data.s3.amazonaws.com/photos"
 HF_ROWS_URL = "https://datasets-server.huggingface.co/first-rows"
 HF_ROWS_PAGE_URL = "https://datasets-server.huggingface.co/rows"
+HF_HUB_DATASET_API = "https://huggingface.co/api/datasets"
+HF_HUB_RESOLVE_URL = "https://huggingface.co/datasets"
 HF_REQUEST_RETRIES = int(os.getenv("DEMO_HF_REQUEST_RETRIES", "3"))
 HF_REQUEST_BACKOFF_SECONDS = float(os.getenv("DEMO_HF_REQUEST_BACKOFF_SECONDS", "2"))
 
@@ -144,6 +147,17 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Resolve and download images without uploading to MinIO.",
     )
+    parser.add_argument(
+        "--cached",
+        action="store_true",
+        default=os.getenv("DEMO_HF_CACHED", "0") == "1",
+        help="Use a previously cached batch without contacting Hugging Face or iNaturalist.",
+    )
+    parser.add_argument(
+        "--cache-dir",
+        default=os.getenv("DEMO_HF_CACHE_DIR", "data/cache/hf-inat"),
+        help="Directory used to persist downloaded images and batch manifests.",
+    )
     return parser.parse_args()
 
 
@@ -202,11 +216,75 @@ def fetch_hf_rows(
 
 
 def fetch_rows(dataset: str, timeout_s: int = 60) -> list[dict[str, Any]]:
-    return fetch_hf_rows(dataset, timeout_s=timeout_s)
+    try:
+        return fetch_hf_rows(dataset, timeout_s=timeout_s)
+    except requests.RequestException as exc:
+        log(f"  Dataset Viewer unavailable ({exc}); reading Parquet from the main Hugging Face Hub")
+        return fetch_hub_parquet_rows(dataset, offset=0, length=100, timeout_s=timeout_s)
 
 
 def fetch_rows_page(dataset: str, *, offset: int, length: int, timeout_s: int = 60) -> list[dict[str, Any]]:
-    return fetch_hf_rows(dataset, offset=offset, length=length, timeout_s=timeout_s)
+    try:
+        return fetch_hf_rows(dataset, offset=offset, length=length, timeout_s=timeout_s)
+    except requests.RequestException as exc:
+        log(f"  Dataset Viewer unavailable ({exc}); reading Parquet from the main Hugging Face Hub")
+        return fetch_hub_parquet_rows(dataset, offset=offset, length=length, timeout_s=timeout_s)
+
+
+def hub_parquet_files(dataset: str, timeout_s: int = 60) -> list[str]:
+    response = requests.get(f"{HF_HUB_DATASET_API}/{dataset}", timeout=timeout_s)
+    response.raise_for_status()
+    files = sorted(
+        item["rfilename"]
+        for item in response.json().get("siblings", [])
+        if str(item.get("rfilename", "")).endswith(".parquet")
+    )
+    if not files:
+        raise RuntimeError(f"No Parquet files found in the main Hub repository for {dataset}.")
+    return files
+
+
+def fetch_hub_parquet_rows(
+    dataset: str,
+    *,
+    offset: int,
+    length: int,
+    timeout_s: int = 60,
+) -> list[dict[str, Any]]:
+    try:
+        import fsspec
+        import pyarrow.parquet as parquet
+    except ImportError as exc:
+        raise RuntimeError(
+            "The main-Hub fallback requires pyarrow and fsspec; run through live-ingest-batch.sh or make demo."
+        ) from exc
+
+    id_field = DATASET_ID_FIELDS.get(dataset)
+    if not id_field:
+        raise ValueError(f"No ID field configured for dataset {dataset!r}")
+
+    remaining_offset = offset
+    remaining_length = length
+    rows: list[dict[str, Any]] = []
+    absolute_row = 0
+    for filename in hub_parquet_files(dataset, timeout_s=timeout_s):
+        url = f"{HF_HUB_RESOLVE_URL}/{dataset}/resolve/main/{quote(filename)}"
+        with fsspec.open(url, "rb", block_size=5 * 1024 * 1024) as source:
+            parquet_file = parquet.ParquetFile(source)
+            shard_rows = parquet_file.metadata.num_rows
+            if remaining_offset >= shard_rows:
+                remaining_offset -= shard_rows
+                absolute_row += shard_rows
+                continue
+            table = parquet_file.read(columns=[id_field]).slice(remaining_offset, remaining_length)
+            for index, raw in enumerate(table.column(id_field).to_pylist()):
+                rows.append({"row_idx": absolute_row + remaining_offset + index, "row": {id_field: raw}})
+            remaining_length -= table.num_rows
+            remaining_offset = 0
+            absolute_row += shard_rows
+            if remaining_length <= 0:
+                break
+    return rows
 
 
 def candidate_photo_ids(dataset: str, rows: list[dict[str, Any]]) -> list[tuple[int, str]]:
@@ -335,6 +413,65 @@ def load_excluded_photo_ids(paths: list[str]) -> set[str]:
     return excluded
 
 
+def cache_manifest_path(cache_dir: str, start_offset: int) -> Path:
+    return Path(cache_dir) / f"batch-offset-{start_offset}.json"
+
+
+def write_cache(cache_dir: str, start_offset: int, seeded: list[SeededImage], image_files: dict[str, str]) -> None:
+    root = Path(cache_dir)
+    root.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "start_offset": start_offset,
+        "items": [
+            {**asdict(item), "cache_file": image_files[item.photo_id]}
+            for item in seeded
+        ],
+    }
+    write_summary(str(cache_manifest_path(cache_dir, start_offset)), payload)
+
+
+def cache_image(cache_dir: str, item: SeededImage, image_bytes: bytes) -> str:
+    extension = item.source_url.rsplit(".", 1)[-1].split("?", 1)[0].lower()
+    relative = Path(dataset_slug(item.dataset)) / f"{item.photo_id}.{extension}"
+    destination = Path(cache_dir) / relative
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(image_bytes)
+    return str(relative)
+
+
+def load_cached_images(args: argparse.Namespace, datasets: list[str], excluded: set[str]) -> list[tuple[SeededImage, bytes]]:
+    manifest_path = cache_manifest_path(args.cache_dir, args.start_offset)
+    if not manifest_path.is_file():
+        raise RuntimeError(
+            f"Cached batch not found at {manifest_path}. Run this batch once without --cached while online."
+        )
+    with manifest_path.open(encoding="utf-8") as handle:
+        payload = json.load(handle)
+
+    root = Path(args.cache_dir).resolve()
+    selected: list[tuple[SeededImage, bytes]] = []
+    counts = {dataset: 0 for dataset in datasets}
+    for raw in payload.get("items", []):
+        dataset = raw.get("dataset")
+        photo_id = str(raw.get("photo_id", ""))
+        if dataset not in counts or photo_id in excluded or counts[dataset] >= args.per_dataset:
+            continue
+        image_path = (root / str(raw.get("cache_file", ""))).resolve()
+        if root not in image_path.parents or not image_path.is_file():
+            raise RuntimeError(f"Cached image is missing or invalid: {image_path}")
+        image_bytes = image_path.read_bytes()
+        item_fields = {field: raw[field] for field in SeededImage.__dataclass_fields__}
+        item_fields["s3_key"] = object_key(args.prefix, dataset, photo_id, raw["source_url"])
+        item_fields["byte_size"] = len(image_bytes)
+        selected.append((SeededImage(**item_fields), image_bytes))
+        counts[dataset] += 1
+
+    missing = [f"{dataset}: {counts[dataset]}/{args.per_dataset}" for dataset in datasets if counts[dataset] < args.per_dataset]
+    if missing:
+        raise RuntimeError("Cached batch does not contain enough eligible images (" + ", ".join(missing) + ").")
+    return selected
+
+
 def main() -> int:
     args = parse_args()
     datasets = [item.strip() for item in args.datasets.split(",") if item.strip()]
@@ -360,6 +497,34 @@ def main() -> int:
     seeded: list[SeededImage] = []
     seeded_photo_ids: set[str] = load_excluded_photo_ids(args.exclude_summary)
     dataset_counts: dict[str, dict[str, int]] = {}
+    configured_datasets = list(datasets)
+    cached_files: dict[str, str] = {}
+
+    if args.cached:
+        cached = load_cached_images(args, datasets, seeded_photo_ids)
+        for item, image_bytes in cached:
+            if s3_client is not None:
+                upload_image(
+                    s3_client,
+                    bucket=args.bucket,
+                    key=item.s3_key,
+                    image_bytes=image_bytes,
+                    content_type=item.content_type,
+                    metadata={
+                        "hf_dataset": item.dataset,
+                        "hf_row_idx": str(item.row_idx),
+                        "inat_photo_id": item.photo_id,
+                        "source_url": item.source_url,
+                        "license": item.license,
+                    },
+                )
+            seeded.append(item)
+            seeded_photo_ids.add(item.photo_id)
+            log(f"  cached: {item.photo_id} -> s3://{args.bucket}/{item.s3_key}")
+        for dataset in datasets:
+            count = sum(item.dataset == dataset for item in seeded)
+            dataset_counts[dataset] = {"requested": args.per_dataset, "seeded": count, "checked": count, "skipped": 0}
+        datasets = []
 
     for dataset in datasets:
         log(f"Sampling {dataset}")
@@ -434,8 +599,7 @@ def main() -> int:
                         },
                     )
 
-                seeded.append(
-                    SeededImage(
+                seeded_item = SeededImage(
                         dataset=dataset,
                         row_idx=row_idx,
                         photo_id=photo_id,
@@ -447,7 +611,8 @@ def main() -> int:
                         content_type=content_type,
                         license=license_text,
                     )
-                )
+                seeded.append(seeded_item)
+                cached_files[photo_id] = cache_image(args.cache_dir, seeded_item, image_bytes)
                 uploaded_for_dataset += 1
                 seeded_photo_ids.add(photo_id)
                 log(f"  {uploaded_for_dataset}/{args.per_dataset}: {photo_id} -> s3://{args.bucket}/{key}")
@@ -466,11 +631,14 @@ def main() -> int:
                 f"from {dataset} after checking {checked} rows."
             )
 
+    if not args.cached:
+        write_cache(args.cache_dir, args.start_offset, seeded, cached_files)
+
     summary = {
         "generated_at": datetime.now(UTC).isoformat(),
-        "source": "huggingface-gt-csse",
+        "source": "local-cache" if args.cached else "huggingface-gt-csse",
         "huggingface_org": "https://huggingface.co/gt-csse",
-        "datasets": datasets,
+        "datasets": configured_datasets,
         "bucket": args.bucket,
         "prefix": args.prefix,
         "start_offset": args.start_offset,
@@ -479,9 +647,9 @@ def main() -> int:
         "dataset_counts": dataset_counts,
         "items": [asdict(item) for item in seeded],
         "notes": [
-            "HF rows are sampled from embedding datasets; image bytes are resolved from iNaturalist Open Data photo URLs.",
-            "No downloaded images are committed to the repository.",
-            f"Dataset pages: {', '.join('https://huggingface.co/datasets/' + quote(ds, safe='/') for ds in datasets)}",
+            "Image bytes came from the local rehearsal cache." if args.cached else "HF rows are sampled from embedding datasets; image bytes are resolved from iNaturalist Open Data photo URLs.",
+            "Downloaded images remain in the git-ignored local cache.",
+            f"Dataset pages: {', '.join('https://huggingface.co/datasets/' + quote(ds, safe='/') for ds in configured_datasets)}",
         ],
     }
     write_summary(args.summary_path, summary)

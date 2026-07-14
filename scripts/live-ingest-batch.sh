@@ -90,6 +90,7 @@ DEMO_LIVE_COLLECTION="${DEMO_LIVE_COLLECTION:-inat-demo-live}"
 DEMO_S3_BUCKET="${DEMO_S3_BUCKET:-pipeline}"
 DEMO_S3_PREFIX="${DEMO_S3_PREFIX:-hf-inat/}"
 DEMO_HF_IMAGES_PER_DATASET="${DEMO_HF_IMAGES_PER_DATASET:-8}"
+DEMO_HF_CACHED="${DEMO_HF_CACHED:-0}"
 DEMO_HF_BATCH_OFFSET_STRIDE="${DEMO_HF_BATCH_OFFSET_STRIDE:-500}"
 DEMO_VERIFY_QUERY="${DEMO_VERIFY_QUERY:-nudibranch}"
 DEMO_COST_PER_1K_IMAGES_USD="${DEMO_COST_PER_1K_IMAGES_USD:-0}"
@@ -135,7 +136,7 @@ run_start_epoch="$(date +%s)"
 # Resolve image bytes from iNaturalist Open Data and upload them to MinIO.
 echo "Seeding batch ${batch_index} from HF row offset ${start_offset}"
 seed_command=(
-  "${UV_BIN}" run --project "${PIPELINE_DIR}" \
+  "${UV_BIN}" run --project "${PIPELINE_DIR}" --with pyarrow --with 'fsspec[http]' \
   "${ROOT_DIR}/scripts/seed-hf-inat-sample.py" \
   --per-dataset "${DEMO_HF_IMAGES_PER_DATASET}" \
   --bucket "${DEMO_S3_BUCKET}" \
@@ -143,6 +144,9 @@ seed_command=(
   --start-offset "${start_offset}" \
   --summary-path "${seed_summary_path}"
 )
+if [ "${DEMO_HF_CACHED}" = "1" ]; then
+  seed_command+=(--cached)
+fi
 if [ "${exclude_summary_count}" -gt 0 ]; then
   seed_command+=("${exclude_summary_args[@]}")
 fi

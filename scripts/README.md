@@ -56,6 +56,8 @@ inline.
 | `DEMO_RESET_COLLECTION` | `live-pipeline-up.sh` | Set to `0` to keep the existing collection when starting the stack. |
 | `DEMO_REMOVE_VOLUMES` | `live-pipeline-down.sh` | Set to `1` to remove Docker volumes on teardown. |
 | `DEMO_HF_IMAGES_PER_DATASET` | `live-ingest-batch.sh`, `seed-hf-inat-sample.py` | Number of resolved images to seed from each configured HF dataset. |
+| `DEMO_HF_CACHED` | `live-ingest-batch.sh`, `seed-hf-inat-sample.py` | Set to `1` to seed from the git-ignored rehearsal cache without contacting Hugging Face or iNaturalist. |
+| `DEMO_HF_CACHE_DIR` | `seed-hf-inat-sample.py` | Local image and manifest cache. Defaults to `data/cache/hf-inat`. |
 | `DEMO_VERIFY_QUERY` | `live-ingest-batch.sh` | Smoke-search query used after ingestion. Defaults to `nudibranch`. |
 | `DEMO_SERVER_PORT` | `local-live.sh` | FastAPI backend port. Defaults to `8088`. |
 | `PORTAL_PORT` | `local-live.sh` | Vite portal port. Defaults to `5173`. |
@@ -68,7 +70,13 @@ inline.
 - `seed-hf-inat-sample.py` is the largest script because it owns network calls
   to Hugging Face, iNaturalist Open Data, and MinIO. Its functions are split by
   responsibility so the shell orchestration does not need to know those details.
+- If the Dataset Viewer API is unavailable, seeding automatically uses HTTP
+  range reads against the repositories' Parquet files on the main Hugging Face
+  Hub. This avoids downloading complete embedding shards.
 - The shell scripts use Python for JSON parsing instead of requiring `jq`; this
   keeps the fresh-clone prerequisites aligned with the README.
 - Runtime summaries are written under `data/runtime/`, which is intentionally
   ignored by git.
+- Successful online seed runs populate `data/cache/hf-inat/`. Reuse the exact
+  batch offline with `DEMO_HF_CACHED=1`; cached mode makes no HF or iNaturalist
+  requests and fails early with a clear message when a batch is incomplete.
