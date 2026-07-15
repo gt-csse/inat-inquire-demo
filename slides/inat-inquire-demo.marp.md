@@ -3,8 +3,8 @@ marp: true
 theme: default
 paginate: true
 size: 16:9
-title: CSSE Director View
-description: Director-level CSSE overview using the iNaturalist x INQUIRE engagement as a proof point
+title: CSSE Director View — Reducing Research Software Risk
+description: Director-level case for reducing research software risk, using iNaturalist x INQUIRE as evidence
 style: |
   :root {
     --font-sans: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -263,6 +263,37 @@ style: |
     width: 25%;
   }
 
+  section.risk table th:first-child,
+  section.risk table td:first-child {
+    width: 22%;
+  }
+
+  section.risk table th:nth-child(2),
+  section.risk table td:nth-child(2) {
+    width: 37%;
+  }
+
+  section.mitigate table th:first-child,
+  section.mitigate table td:first-child {
+    width: 28%;
+  }
+
+  section.value table th:first-child,
+  section.value table td:first-child {
+    width: 19%;
+  }
+
+  section.value table th:nth-child(2),
+  section.value table td:nth-child(2) {
+    width: 29%;
+  }
+
+  section.risk p,
+  section.mitigate p,
+  section.value p {
+    max-width: 1080px;
+  }
+
   section.demo {
     padding-right: 520px;
     background:
@@ -335,7 +366,7 @@ style: |
 
 ## A Director's View
 
-From research software risk to measurable, inspectable outcomes.
+Reducing software-related research risk through rigorous, inspectable engineering.
 
 **Example engagement: iNaturalist x INQUIRE**
 
@@ -343,31 +374,31 @@ From research software risk to measurable, inspectable outcomes.
 
 <!-- _class: risk -->
 
-## Software Risks in Scientific Research
+## When Research Depends on Software, Software Quality Becomes Research Risk
 
-Research software risk is often invisible until a team tries to use it beyond the prototype.
-
-| Risk | What It Looks Like | Team's Impact |
+| Potential Harm | Software Hazard | Research Consequence |
 | --- | --- | --- |
-| Intangible outcomes | Demo code, notebooks, or one-off scripts that do not transfer into operation | Hard to fund, evaluate, or reuse |
-| Unclear impact | Users cannot tell whether the software improves the research workflow | Adoption and stakeholder trust stall |
-| Low quality | Fragile pipelines, weak tests, no scale path | Reproducibility and sustainability is questionable |
+| Incorrect conclusions | Incorrect behavior or evaluation at limited scales | Findings or decisions rest on unreliable output |
+| Unreproducible results | Software tied to one person, dataset, or environment | Others cannot independently rerun or verify the work |
+| Wasted investment | Brittle software that is difficult to extend or operate | Time and funding are spent rebuilding instead of researching |
+| Loss of trust | Missing provenance, evidence, or visible quality controls | Confidence in the research program is damaged |
 
 ---
 
 <!-- _class: mitigate -->
 
-## GT CSSE Mitigates Software Risks
+## CSSE Introduces Controls Before Hazards Become Harms
 
-CSSE turns research ambition into software evidence a sponsor can inspect.
+The objective is not more process. It is more trustworthy research and more defensible investment decisions.
 
-| Tangible Outcomes | Real Impact | Production Quality |
+| Engineering Control | What It Changes | Evidence A Director Can Ask For |
 | --- | --- | --- |
-| Working systems, not just diagrams | Workflow evidence tied to scientific use | Source traceability, tests, and metrics |
-| Clear artifacts for PIs, RSEs, and directors | Usability, maintainability, and operational fit | Reproducibility, scalability, and reviewable architecture |
-| Portfolio proof points across engagements | A basis for the next investment decision | A credible path from local proof to managed service |
+| Evaluation and quality gates | Incorrect behavior is more likely to be detected before use | Benchmarks, thresholds, review criteria |
+| Provenance and reproducible workflows | Results are easier to trace, rerun, and verify | Source records, scripts, environments, run summaries |
+| Modular architecture and documented interfaces | Change and reuse carry less cost and uncertainty | Contracts, tests, architecture decisions |
+| Metrics, runbooks, and recovery paths | Failures become visible and their consequences are contained | Operational signals, validation, fallback evidence |
 
-> Project portfolio: [gt-csse.github.io/project-showcase](https://gt-csse.github.io/project-showcase/#/projects)
+> CSSE reduces avoidable software-related risk; it does not eliminate scientific uncertainty.
 
 ---
 
@@ -375,14 +406,14 @@ CSSE turns research ambition into software evidence a sponsor can inspect.
 
 ## Example: iNaturalist x INQUIRE Engagement
 
-**Risk:** support natural-language semantic search over fast-growing biodiversity imagery.
+**Research goal:** support natural-language semantic search over fast-growing biodiversity imagery.
 
 - iNaturalist has reached **300M observations** and continues to grow.
 - INQUIRE frames the retrieval challenge around **250 expert ecological queries** over **5M iNat24 images**.
-- Fresh data, provenance, retrieval quality, and scale all have to be visible.
-- CSSE delivered a path that connects ingestion, embeddings, vector search, metrics, and review artifacts.
+- Hazards to manage included untraceable results, weakly evaluated retrieval, unable to absorb fresh data at scale and reasonable cost.
+- CSSE built a bounded, inspectable path from source data through ingestion, embeddings, vector search, and evaluation highlighting cost performance trade-offs.
 
-> Public context: iNaturalist milestone blog, March 20, 2026; INQUIRE benchmark site.
+> Public context: [iNaturalist's 300M milestone](https://www.inaturalist.org/blog/126478); [INQUIRE benchmark paper](https://papers.nips.cc/paper_files/paper/2024/file/e4ad9c75f0d60ed75700f020adb3f705-Paper-Datasets_and_Benchmarks_Track.pdf).
 
 ---
 
@@ -390,12 +421,13 @@ CSSE turns research ambition into software evidence a sponsor can inspect.
 
 ## Live Demo / Video (Optional)
 
-The demo makes the risk visible as an operating workflow, not a static claim.
+The demo makes the risk-reducing controls visible—not just the search result.
 
-- Start with a bounded collection and run a natural-language query.
-- Append a new batch without rebuilding the system.
-- Rerun the same query and inspect changed ranked results.
-- Review scores, latency, source URLs, object keys, dimensions, and evidence artifacts.
+- **Controlled change:** ingest batch 1, search, append batch 2, and rerun the same query.
+- **Observable state:** the collection grows from `24` to `48` vectors.
+- **Traceable results:** inspect scores, source URLs, licenses, object keys, and dimensions.
+- **Repeatable workflow:** scripts and runtime summaries preserve how the result was produced.
+- **Cost trade-offs:** estimated cost performance of different technologies for deployment at scale.
 
 > Fallback path: captured evidence shows the same before/after workflow if the live system is not available.
 
@@ -403,16 +435,17 @@ The demo makes the risk visible as an operating workflow, not a static claim.
 
 <!-- _class: value -->
 
-## GT CSSE Delivered Value
+## Evidence That Risk-Reducing Controls Exist
 
-| Dimension | Evidence From This Engagement | Why It Matters |
+| Hazard Addressed | Evidence From This Engagement | What The Evidence Supports |
 | --- | --- | --- |
-| Outcome | FastAPI search, Ray ingestion, Qdrant vectors, SigLIP2/Infinity embeddings; source metadata preserved | Turns a research retrieval idea into a sponsor-visible workflow |
-| Impact | **20,000** vectors; **37.8 images/sec** ingest; **418 ms** p95 search; **41%** cache-hit signal | Grounds the demo in reproducible performance and scale evidence |
-| Quality | 50-query benchmark, Prometheus metrics, checkpoint resume, DLQ replay, quality gates | Makes retrieval behavior and operations reviewable |
-| Resources and timeline |  |  |
+| Untraceable results | Dataset IDs, source URLs, licenses, dimensions, and object keys | A reviewer can connect a result to its source |
+| Unevaluated retrieval | 50-query benchmark: **0.72 P@10**, **0.81 NDCG@10** | Retrieval quality is tested rather than assumed |
+| Unknown scale behavior | **37.8 images/sec** ingest; **418 ms** p95 search | Performance has been measured on a bounded evidence set |
+| Fragile operation | Scripts, tests, metrics, checkpoint resume, DLQ recovery, and runbook | The workflow can be rerun, inspected, and recovered |
+| Untenable deployment cost | Different database, indexing technologies benchmarked for the workflow | The workflow cost in deployment can extrapolated from the benchmark|
 
-> Evidence sources: Inquire-vector-search GitHub repo, `data/evidence/*.json`, `docs/technical-reference.md`.
+> Captured demo evidence, not production SLOs or a quantified claim of risk reduction.
 
 ---
 
@@ -426,10 +459,10 @@ The demo makes the risk visible as an operating workflow, not a static claim.
 
 <!-- _class: cta -->
 
-# Bring CSSE in when research outcomes depend on software quality.
+# Make the Next Software Investment a Risk-Informed Decision.
 
-| Speed | Scale | Reproduce | Use |
+| Identify Harm | Expose Hazards | Require Evidence | Choose The Target |
 | --- | --- | --- | --- |
-| Latency and throughput evidence | Fresh data and managed ingestion | Source trace, tests, and runbooks | Research workflow fit |
+| What research, funding, or trust must be protected? | Where could software contribute to failure? | What controls and quality gates must be inspectable? | Validated prototype, hosted pilot, or managed service? |
 
-Choose the next dataset, quality gates, and operating target.
+Bring CSSE in early—before avoidable software hazards become research harms.
