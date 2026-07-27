@@ -35,7 +35,7 @@ style: |
       var(--paper);
     color: var(--ink);
     font-family: var(--font-sans);
-    padding: 54px 72px 48px;
+    padding: 70px 72px 32px;
   }
 
   section::after {
@@ -828,10 +828,15 @@ style: |
   }
 
   section.team {
-    display: grid;
-    place-items: center;
-    padding: 22px 42px 18px;
-    background: #f7f8f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 70px 72px 32px;
+    background:
+      linear-gradient(90deg, var(--gold), var(--orange), var(--green), var(--blue)) top / 100% 7px no-repeat,
+      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,248,243,0.92)),
+      var(--paper);
   }
 
   section.backup {
@@ -854,21 +859,177 @@ style: |
     font-size: 24px;
   }
 
-  section.team p {
-    margin: 0;
+  section.team h2 {
+    margin-bottom: 4px;
   }
 
-  section.team blockquote {
-    position: absolute;
-    left: 52px;
-    bottom: 28px;
-    margin: 0;
-    max-width: 720px;
-    font-size: 15px;
+  .team-groups {
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 1080px;
+    margin: 4px auto 8px;
   }
 
-  section.team blockquote p {
+  .team-groups div {
+    border: 1px solid rgba(0,48,87,0.13);
+    border-radius: 7px;
+    background: rgba(255,255,255,0.9);
+    padding: 7px 12px;
+    color: var(--navy);
     font-size: 15px;
+    font-weight: 900;
+  }
+
+  .team-groups div:first-child {
+    border-top: 4px solid var(--gold);
+  }
+
+  .team-groups div:last-child {
+    border-top: 4px solid var(--blue);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .person-card {
+    border: 1px solid rgba(0,48,87,0.12);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.9);
+    padding: 10px 7px 9px;
+    text-align: center;
+  }
+
+  .person-photo {
+    width: 104px;
+    height: 104px;
+    margin: 0 auto 7px;
+    border-radius: 50%;
+    background-image: url("assets/director-outline/csse-team-capabilities.png");
+    background-repeat: no-repeat;
+    background-size: 914px 640px;
+  }
+
+  .person-photo.rich { background-position: -80px -176px; }
+  .person-photo.jeffrey { background-position: -274px -176px; }
+  .person-photo.dave { background-position: -555px -176px; }
+  .person-photo.ketan { background-position: -706px -176px; }
+  .person-photo.robert { background-position: -555px -389px; }
+  .person-photo.nirvana { background-position: -706px -389px; }
+
+  .person-card strong {
+    display: block;
+    color: var(--navy);
+    font-size: 15px;
+    line-height: 1.05;
+  }
+
+  .person-card span {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.12;
+    font-weight: 750;
+  }
+
+  .capability-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .capability-row span {
+    border: 1px solid rgba(0,48,87,0.14);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.9);
+    padding: 5px 10px;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  .team-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 14px;
+    width: 100%;
+    max-width: 1080px;
+    margin: 4px auto 0;
+  }
+
+  .team-cluster {
+    border: 1px solid rgba(0,48,87,0.12);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.55);
+    padding: 10px;
+  }
+
+  .team-cluster > strong {
+    display: block;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: var(--navy);
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .team-cluster.leadership > strong {
+    border-top: 4px solid var(--gold);
+    background: rgba(179,163,105,0.1);
+  }
+
+  .team-cluster.operations > strong {
+    border-top: 4px solid var(--blue);
+    background: rgba(0,79,159,0.08);
+  }
+
+  .cluster-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+  }
+
+  .team-cluster.leadership .cluster-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-cluster .person-card {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    align-items: center;
+    min-height: 112px;
+    padding: 7px;
+    text-align: left;
+  }
+
+  .team-cluster .person-photo {
+    width: 88px;
+    height: 88px;
+    margin: 0;
+    background-size: 773px 542px;
+  }
+
+  .team-cluster .person-photo.rich { background-position: -68px -149px; }
+  .team-cluster .person-photo.jeffrey { background-position: -232px -149px; }
+  .team-cluster .person-photo.dave { background-position: -470px -149px; }
+  .team-cluster .person-photo.ketan { background-position: -597px -149px; }
+  .team-cluster .person-photo.robert { background-position: -470px -329px; }
+  .team-cluster .person-photo.nirvana { background-position: -597px -329px; }
+
+  .team-cluster .person-card strong,
+  .team-cluster .person-card span {
+    padding-left: 8px;
   }
 
   section.cta h1 {
@@ -1175,11 +1336,16 @@ style: |
 
   .map-takeaway {
     width: 100%;
-    margin: 0 0 8px;
+    max-width: 1060px;
+    margin: 3px auto 16px;
+    border-left: 6px solid var(--orange);
+    border-radius: 0 8px 8px 0;
+    background: linear-gradient(90deg, rgba(249,94,16,0.11), rgba(255,255,255,0.55));
+    padding: 9px 16px 10px;
     color: var(--navy);
-    text-align: center;
-    font-size: 20px;
-    line-height: 1.15;
+    text-align: left;
+    font-size: 23px;
+    line-height: 1.12;
     font-weight: 900;
   }
 
@@ -1224,7 +1390,7 @@ style: |
 
 # CSSE
 
-## Reducing research risk through inspectable engineering.
+## Your software engineering partner for reducing research risk through proportionate judgment
 
 **Example engagement: iNaturalist x INQUIRE**
 
@@ -1326,7 +1492,7 @@ Thread statement: Establish that the consequences are real, then show how AI inc
 
 <div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control active"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
 
-## CSSE Provides the Judgment Behind Effective Controls
+## CSSE Provides the RSE Judgment Behind Effective Controls
 
 <!--
 Thread statement: Position CSSE's value as professional orientation and judgment, not a catalog of techniques.
@@ -1423,7 +1589,7 @@ Thread statement: Show that CSSE selected proportionate controls and made each o
 
 <div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
 
-## What the Demo Can—and Cannot—Prove
+## What the Demo Can and Cannot Prove
 
 <!--
 Thread statement: Separate direct live proof, captured benchmark evidence, and target-state readiness so the investment claim remains credible.
@@ -1447,7 +1613,7 @@ Thread statement: Separate direct live proof, captured benchmark evidence, and t
   <div class="annotation-row">
     <div class="annotation-card"><strong>0.72 / 0.81</strong><span>P@10 / NDCG@10 evaluation evidence</span></div>
     <div class="annotation-card"><strong>Inspectable</strong><span>Source-level traceability supports a pilot.</span></div>
-    <div class="annotation-card"><strong>24 → 48</strong><span>Repeatable growth—not production scale.</span></div>
+    <div class="annotation-card"><strong>24 → 48</strong><span>Repeatable growth not production scale.</span></div>
   </div>
 </div>
 
@@ -1456,14 +1622,40 @@ Thread statement: Separate direct live proof, captured benchmark evidence, and t
 
 <!-- _class: team -->
 
-![w:1110](assets/director-outline/csse-team-capabilities.png)
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision active"><b>→</b>Outcome</span></div>
 
-> Team roster and source images: [ssecenter.cc.gatech.edu/people](https://ssecenter.cc.gatech.edu/people/)
+## The Team Behind the Controls
+
+<div class="map-takeaway">Leadership, engineering, and operations make the controls durable beyond a single project.</div>
+
+<div class="team-layout">
+  <div class="team-cluster leadership">
+    <strong>Leadership</strong>
+    <div class="cluster-grid">
+      <div class="person-card"><div class="person-photo rich"></div><div><strong>Rich Vuduc</strong><span>SSE Co-director</span></div></div>
+      <div class="person-card"><div class="person-photo jeffrey"></div><div><strong>Jeffrey Young</strong><span>SSE Co-director</span></div></div>
+    </div>
+  </div>
+  <div class="team-cluster operations">
+    <strong>Engineering + Operations</strong>
+    <div class="cluster-grid">
+      <div class="person-card"><div class="person-photo dave"></div><div><strong>Dave Brownell</strong><span>Head of Engineering</span></div></div>
+      <div class="person-card"><div class="person-photo ketan"></div><div><strong>Ketan Bhardwaj</strong><span>Senior RSE</span></div></div>
+      <div class="person-card"><div class="person-photo robert"></div><div><strong>Robert Bates</strong><span>Senior RSE</span></div></div>
+      <div class="person-card"><div class="person-photo nirvana"></div><div><strong>Nirvana Edwards</strong><span>Programs &amp; Ops</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="capability-row">
+  <span>Software engineering</span><span>Architecture</span><span>Product + program</span><span>UI/UX</span><span>Technical writing</span>
+</div>
 
 <!--
 Thread statement: Answer "Who is GT CSSE?" immediately after the example has demonstrated the team's judgment, controls, and evidence.
 
 - Present the team as the professional capability behind the example, not as an unrelated roster.
+- Team roster and source images: https://ssecenter.cc.gatech.edu/people/
 - Transition: "This is the team that can bring the same risk-informed engineering judgment to the next research challenge."
 -->
 
