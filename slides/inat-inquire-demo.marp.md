@@ -213,11 +213,12 @@ style: |
     right: 72px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0;
     z-index: 2;
   }
 
   .thread span {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -233,11 +234,20 @@ style: |
     text-transform: uppercase;
   }
 
+  .thread span:not(:last-child) {
+    margin-right: 22px;
+  }
+
   .thread span:not(:last-child)::after {
     content: "\2192";
     position: absolute;
-    margin-left: 74px;
+    left: calc(100% + 6px);
+    top: 50%;
+    margin: 0;
     color: var(--muted);
+    font-size: 13px;
+    line-height: 1;
+    transform: translateY(-50%);
   }
 
   .thread b {
@@ -431,6 +441,64 @@ style: |
     font-size: 58px;
   }
 
+  section.cta {
+    background:
+      linear-gradient(90deg, var(--gold), var(--orange), var(--green), var(--blue)) top / 100% 7px no-repeat,
+      #001d33;
+  }
+
+  section.cta h1 {
+    color: #fff;
+  }
+
+  section.cta .thread span {
+    border-color: rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.84);
+  }
+
+  section.cta .thread b {
+    opacity: 1;
+  }
+
+  section.cta .flow .card {
+    border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+  }
+
+  section.cta .flow h3 {
+    color: #fff;
+  }
+
+  section.cta .flow p {
+    color: rgba(255,255,255,0.76);
+  }
+
+  section.cta .flow .engage {
+    border-color: rgba(179,163,105,0.78);
+    background: rgba(179,163,105,0.16);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+  }
+
+  section.cta .flow .decision {
+    border-color: rgba(33,110,78,0.85);
+    background: rgba(33,110,78,0.22);
+  }
+
+  section.cta .flow .card:not(:last-child)::after {
+    color: var(--gold);
+  }
+
+  section.cta > p:last-child {
+    color: var(--gold);
+  }
+
+  section.cta::after {
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+
   section.cta .flow .icon {
     display: grid;
     margin: 0 0 9px;
@@ -480,7 +548,7 @@ style: |
   }
 
   section.cta .flow .decision {
-    background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(33,110,78,0.08));
+    background: rgba(33,110,78,0.22);
   }
 
   .metric {
@@ -958,6 +1026,61 @@ style: |
     font-weight: 850;
   }
 
+  .product-outcome {
+    display: grid;
+    grid-template-columns: minmax(0, 2.15fr) minmax(270px, 0.85fr);
+    align-items: stretch;
+    gap: 18px;
+    width: 100%;
+    max-width: 1080px;
+    margin: 18px auto 0;
+  }
+
+  .product-shot {
+    overflow: hidden;
+    border: 1px solid rgba(0,48,87,0.16);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(0,48,87,0.12);
+  }
+
+  .product-shot img {
+    display: block;
+    width: 100%;
+    height: 385px;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .outcome-stack {
+    display: grid;
+    gap: 11px;
+  }
+
+  .outcome-card {
+    border: 1px solid rgba(0,48,87,0.13);
+    border-left: 5px solid var(--green);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.92);
+    padding: 14px 13px;
+  }
+
+  .outcome-card strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--navy);
+    font-size: 18px;
+    line-height: 1.05;
+  }
+
+  .outcome-card span {
+    display: block;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.18;
+    font-weight: 720;
+  }
+
   .team-layout {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -1045,7 +1168,7 @@ style: |
 
   section.cta .flow p {
     margin: 0;
-    color: var(--muted);
+    color: rgba(255,255,255,0.76);
     font-size: 15px;
     line-height: 1.2;
   }
@@ -1053,10 +1176,14 @@ style: |
   section.cta > p:last-child {
     max-width: 960px;
     margin: 22px 0 0;
-    color: var(--navy);
+    color: var(--gold);
     font-size: 28px;
     line-height: 1.18;
     font-weight: 850;
+  }
+
+  section.cta > p:last-child strong {
+    color: var(--gold);
   }
 
   .hero-graphic {
@@ -1620,9 +1747,37 @@ Thread statement: Separate direct live proof, captured benchmark evidence, and t
 
 ---
 
-<!-- _class: team -->
+<!-- _class: outcome-product-slide -->
 
 <div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision active"><b>→</b>Outcome</span></div>
+
+## Outcome: `inquire-vector-search`
+
+<div class="map-takeaway">SSE involvement made the research pipeline inspectable, repeatable, and ready for the next bounded increment.</div>
+
+<div class="product-outcome">
+  <div class="product-shot"><img src="assets/01-director-overview.png" alt="iNaturalist x INQUIRE vector-search portal showing source, ingestion, indexing, search, review, and live evidence"></div>
+  <div class="outcome-stack">
+    <div class="outcome-card"><strong>Inspectable research workflow</strong><span>Source → ingest → index → search → review, with result-level provenance.</span></div>
+    <div class="outcome-card"><strong>Repeatable operating path</strong><span>Scripted ingestion, same-query reruns, metrics, validation, and recovery controls.</span></div>
+    <div class="outcome-card"><strong>Evidence for the next decision</strong><span>A demonstrable system and technical package that support a pilot—not a production claim.</span></div>
+  </div>
+</div>
+
+<!--
+Thread statement: Name inquire-vector-search as the concrete outcome of SSE involvement after the controls and evidence have been established.
+
+- The existing inquire-vector-search public API remains the source pipeline; the demo backend adapts it without replacing or changing that interface.
+- SSE contribution shown here includes traceable result presentation, repeatable batch ingestion and append, runtime evidence, operating controls, validation, documentation, and a reproducible delivery path.
+- The bounded live workflow supports a prototype-to-pilot decision. It does not prove production SLOs or full iNaturalist scale.
+- Transition: "The next slide shows the cross-functional team capable of carrying the same judgment into the next research challenge."
+-->
+
+---
+
+<!-- _class: team -->
+
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
 
 ## The Team Behind the Controls
 
