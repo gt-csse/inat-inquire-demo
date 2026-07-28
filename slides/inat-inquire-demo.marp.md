@@ -1513,7 +1513,7 @@ style: |
 
 ![w:240](assets/director-outline/gt-logo-oneline-white.svg)
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<!-- <div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>-->
 
 # CSSE
 
@@ -1527,7 +1527,7 @@ style: |
 
 <!-- _class: risk hazard-focus -->
 
-<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div> 
 
 ## Why Research-Software Risk Recurs
 
@@ -1732,7 +1732,7 @@ Thread statement: Separate direct live proof, captured benchmark evidence, and t
 - Transition: use the strength of the evidence—and the remaining uncertainty—to decide the next bounded increment.
 -->
 
-<div class="map-takeaway">Evidence supports the next pilot—not a production claim.</div>
+<div class="map-takeaway">Evidence supports the next pilot not a production claim.</div>
 
 <div class="annotation-map">
   <img src="assets/generated/evidence-boundary.png" alt="Prototype evidence supporting a pilot, with production beyond the current evidence boundary">
