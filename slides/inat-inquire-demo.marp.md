@@ -1499,6 +1499,77 @@ style: |
     margin-bottom: 4px;
   }
 
+  .retraction-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 16px auto 0;
+  }
+
+  .retraction-card {
+    min-height: 184px;
+    overflow: hidden;
+    border: 1px solid rgba(0,48,87,0.14);
+    border-top: 5px solid var(--orange);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.94);
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .retraction-card img {
+    display: block;
+    width: 100%;
+    height: 82px;
+    object-fit: cover;
+    object-position: center;
+    border-bottom: 1px solid rgba(0,48,87,0.1);
+  }
+
+  .retraction-copy {
+    padding: 8px 12px 10px;
+  }
+
+  .retraction-card small,
+  .retraction-card strong,
+  .retraction-card span {
+    display: block;
+  }
+
+  .retraction-card small {
+    color: var(--blue);
+    font-size: 11px;
+    line-height: 1.1;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .retraction-card strong {
+    margin-top: 4px;
+    color: var(--navy);
+    font-size: 16px;
+    line-height: 1.08;
+  }
+
+  .retraction-card span {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.15;
+    font-weight: 740;
+  }
+
+  section:has(.retraction-grid) {
+    justify-content: flex-start;
+  }
+
+  section:has(.retraction-grid) h2 {
+    margin-bottom: 4px;
+  }
+
   .news-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1757,6 +1828,21 @@ style: |
     width: 100%;
     height: 390px;
     object-fit: contain;
+    object-position: center;
+    justify-self: center;
+  }
+
+  /* Normalize optical area across illustrations with different aspect ratios. */
+  .side-annotation-map > img.visual-risk {
+    width: 80%;
+  }
+
+  .side-annotation-map > img.visual-controls {
+    width: 100%;
+  }
+
+  .side-annotation-map > img.visual-evidence {
+    width: 85%;
   }
 
   .side-callouts {
@@ -1846,8 +1932,6 @@ style: |
 
 ![w:240](assets/director-outline/gt-logo-oneline-white.svg)
 
-<!-- <div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>-->
-
 # CSSE
 
 ## Your software engineering partner for reducing research risk through proportionate judgment
@@ -1860,7 +1944,7 @@ style: |
 
 <!-- _class: risk -->
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span></div>
 
 ## Research Harm Due to Software Is Real
 
@@ -1875,32 +1959,32 @@ style: |
 - AI invented dependencies: code LLMs generated 205,474 unique nonexistent package names. Spracklen et al., 2024: https://arxiv.org/abs/2406.10279
 -->
 
-<div class="map-takeaway">Observed harms span validity, reproducibility, continuity, and AI-assisted development.</div>
+<div class="map-takeaway">Research harm due to software is real—and documented in the public record.</div>
 
-<div class="evidence-grid">
-  <div class="evidence-block">
-    <img src="assets/generated/public-evidence-blocks/fmri.png" alt="Brain scan illustrating invalid fMRI inference">
-    <div class="evidence-copy"><strong>fMRI inference</strong><span>Common methods produced false-positive rates up to <strong>70%</strong>.</span><small>PNAS · 2016</small></div>
+<div class="news-grid">
+  <div class="news-card">
+    <img src="assets/news-coverage/fmri-wired.jpg" alt="WIRED article artwork showing a brain scan">
+    <div class="news-copy"><small>WIRED · 2016</small><strong>Bug in fMRI software calls 15 years of research into question</strong><span>False-positive rates reached 70%.</span></div>
   </div>
-  <div class="evidence-block">
-    <img src="assets/generated/public-evidence-blocks/genomic-data.png" alt="Spreadsheet illustrating altered genomic data">
-    <div class="evidence-copy"><strong>Genomic data</strong><span>Spreadsheet behavior silently converted gene names into dates.</span><small>PLOS · 2021</small></div>
+  <div class="news-card">
+    <img src="assets/news-coverage/genomics-nature.jpg" alt="Nature article artwork about spreadsheet gene-name errors">
+    <div class="news-copy"><small>Nature · 2021</small><strong>Spreadsheet errors silently corrupted published gene lists</strong><span>About 30% of examined papers contained gene-name errors.</span></div>
   </div>
-  <div class="evidence-block">
-    <img src="assets/generated/public-evidence-blocks/shared-code.png" alt="Code window illustrating failed execution">
-    <div class="evidence-copy"><strong>Shared code</strong><span><strong>74%</strong> of tested R files failed initial execution.</span><small>Scientific Data · 2022</small></div>
+  <div class="news-card">
+    <img src="assets/news-coverage/code-scientific-data.png" alt="Scientific Data article figure about research code execution">
+    <div class="news-copy"><small>Scientific Data · 2022</small><strong>Shared analysis code could not be rerun</strong><span>74% of tested R files failed in a clean environment.</span></div>
   </div>
-  <div class="evidence-block">
-    <img src="assets/generated/public-evidence-blocks/clinical-trials.png" alt="Clinical test illustrating invalid predictors">
-    <div class="evidence-copy"><strong>Clinical trials</strong><span>Invalid omics-based predictors were used in three cancer trials.</span><small>IOM · 2012</small></div>
+  <div class="news-card">
+    <img src="assets/news-coverage/duke-nature.jpg" alt="Duke University campus accompanying Nature coverage">
+    <div class="news-copy"><small>Nature News · 2011</small><strong>Invalid predictors reached patients in three cancer trials</strong><span>Research errors crossed into patient-facing studies.</span></div>
   </div>
-  <div class="evidence-block">
-    <img src="assets/generated/public-evidence-blocks/research-access.png" alt="Locked digital archive illustrating interrupted access">
-    <div class="evidence-copy"><strong>Research access</strong><span>Ransomware removed access to most British Library online systems.</span><small>British Library · 2024</small></div>
+  <div class="news-card">
+    <img src="assets/news-coverage/british-library.jpg" alt="British Library exterior accompanying cyber-attack coverage">
+    <div class="news-copy"><small>Nature · 2024</small><strong>Cyberattack cut researchers off from national collections</strong><span>Research access was disrupted for months.</span></div>
   </div>
-  <div class="evidence-block">
-    <img src="assets/generated/public-evidence-blocks/ai-dependencies.png" alt="AI-generated code illustrating invented dependencies">
-    <div class="evidence-copy"><strong>AI dependencies</strong><span>Code models generated <strong>205,474</strong> unique nonexistent package names.</span><small>Spracklen et al. · 2024</small></div>
+  <div class="news-card">
+    <img src="assets/news-coverage/ai-usenix.png" alt="USENIX article artwork about package hallucinations">
+    <div class="news-copy"><small>USENIX · 2025</small><strong>AI-generated code pointed users to nonexistent packages</strong><span>Models invented 205,474 unique dependency names.</span></div>
   </div>
 </div>
 
@@ -1908,7 +1992,7 @@ style: |
 
 <!-- _class: risk hazard-focus -->
 
-<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div> 
+<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div> 
 
 ## Why Research-Software Risk Recurs
 
@@ -1946,7 +2030,7 @@ Thread statement: Combine the scientific-assumption tension and recurring resear
 
 <!-- _class: risk harm-focus -->
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
 
 ## When Software Hazards Materialize, Research Bears the Cost.
 
@@ -1993,30 +2077,38 @@ Thread statement: Establish that the consequences are real, then show how AI inc
 
 <!-- _class: mitigate -->
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control active"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control active"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
 
-## CSSE Provides the RSE Judgment Behind Effective Controls
+## CSSE Provides the Engineering Judgment Research Teams Need
 
 <!--
-Thread statement: Position CSSE's value as professional orientation and judgment, not a catalog of techniques.
+Thread statement: CSSE's value is not a checklist of controls; it is practiced RSE judgment about which response is appropriate, sufficient, and sustainable.
 
-- Researchers are correctly focused on scientific discovery. RSEs are interested in and accountable for the engineering questions surrounding that discovery.
-- "Better and faster" comes from practiced pattern recognition: RSEs repeatedly work across architecture, verification, reproducibility, security, operations, maintainability, and handoff.
-- Proportionate judgment matters. The right response depends on the research consequence, maturity, users, lifespan, and available evidence. Use the "backhoe for a nail" analogy only in narration: automation can produce an elaborate solution without understanding whether it is the right-sized solution.
+- Follow the same four-part order as the previous slide: validity, reproducibility, research time, and continuity.
+- Validity: judgment identifies which assumptions and outputs are consequential enough to require tests, traceability, or independent verification.
+- Reproducibility: judgment determines what must be captured—and what evidence is sufficient—for others to verify and extend the work.
+- Research time: judgment right-sizes architecture, automation, testing, and recovery to the consequence, maturity, users, and expected lifespan.
+- Continuity: judgment anticipates the ownership, operational, documentation, and handoff model the research will actually need.
+- Researchers bring deep scientific and domain judgment. They are not expected to build broad engineering pattern recognition while remaining focused on discovery.
+- RSEs focus on exactly this work across projects and over time. That repeated exposure makes difficult-to-build engineering judgment available to the research team.
 - AI is valuable implementation leverage. It does not own the research context, accept accountability, negotiate tradeoffs, or decide what evidence is sufficient.
 - This slide should answer why CSSE is the partner. Later slides show the techniques and evidence as proof.
 - Transition: "The example that follows shows this judgment in practice: identifying the consequential risks, applying proportionate controls, and making the evidence inspectable."
 -->
 
-<div class="map-takeaway">Researchers discover. CSSE makes the software dependable.</div>
+<div class="map-takeaway">Researchers bring scientific judgment. RSEs choose and right-size the engineering response.</div>
 
-<div class="annotation-map">
+<div class="annotation-map corner">
+  <div class="annotation-row two top">
+    <div class="annotation-card"><strong>Protect validity</strong><span>Identify which assumptions and results require evidence.</span></div>
+    <div class="annotation-card"><strong>Enable reproducibility</strong><span>Decide what must be captured to verify and extend.</span></div>
+  </div>
+
   <img src="assets/generated/csse-judgment.png" alt="Research discovery connected to durable software through proportionate engineering judgment">
 
-  <div class="annotation-row">
-    <div class="annotation-card"><strong>Professional focus</strong><span>Find where assumptions and systems may break.</span></div>
-    <div class="annotation-card"><strong>Proportionate judgment</strong><span>Match the response to the research consequence.</span></div>
-    <div class="annotation-card"><strong>Accountable continuity</strong><span>Make ownership, evidence, and handoff durable.</span></div>
+  <div class="annotation-row two">
+    <div class="annotation-card"><strong>Preserve research time</strong><span>Right-size prevention, automation, and recovery.</span></div>
+    <div class="annotation-card"><strong>Sustain continuity</strong><span>Design ownership and handoff for the expected lifespan.</span></div>
   </div>
 </div>
 
@@ -2025,28 +2117,27 @@ Thread statement: Position CSSE's value as professional orientation and judgment
 
 <!-- _class: example -->
 
-<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
 
-## Applying the Framework: iNaturalist x INQUIRE
+## CSSE Identified the Risks That Matter for This Pilot
 
 <!--
-Thread statement: Show how CSSE used judgment to select three consequential, demonstrable risks rather than trying to engineer every possible concern.
+Thread statement: Make the first act of judgment visible: CSSE selected the three risks that could materially affect credible research use and the next investment decision.
 
 - iNaturalist provides the motivating scale: more than 300 million observations and continued growth. INQUIRE is the concrete evaluation setting, with 250 expert information needs over the 5-million-image iNat24 collection.
 - Keep those numbers distinct: 300 million describes the broader iNaturalist context; 5 million describes the benchmark collection used by INQUIRE.
 - The goal is to enable INQUIRE-like natural-language search over iNaturalist data, including descriptions of behavior, habitat, or visual relationships that a species label alone may not capture.
+- Many engineering concerns are possible. CSSE did not treat them as equally consequential or attempt to solve all of them.
 - Consistency risk: rankings can shift as data and software change, shaping which examples a researcher sees and potentially influencing interpretation.
 - Freshness risk: new observations must enter the index quickly and predictably or the search view falls behind the underlying collection.
 - Growth risk: increasing data volume should not force the team to rebuild ingestion, indexing, search, or recovery workflows.
 - Transition: "These three risks determine the controls shown in the demo; everything else is deliberately out of scope."
 -->
 
-<div class="map-takeaway">iNaturalist: 300M+ observations · new images added daily</div>
-<div class="map-takeaway">INQUIRE: 250 expert queries · 5M benchmark images</div>
-<div class="map-takeaway">Goal: Enable INQUIRE-like natural-language search on iNaturalist</div>
+<div class="map-takeaway">Engagement challenge: apply INQUIRE’s expert-query approach to iNaturalist’s 300M+ observations.</div>
 
 <div class="side-annotation-map">
-  <img src="assets/generated/inquire-risks.png" alt="Biodiversity image search facing consistency, freshness, and growth risks">
+  <img class="visual-risk" src="assets/generated/inquire-risks.png" alt="Biodiversity image search facing consistency, freshness, and growth risks">
 
   <div class="side-callouts">
     <div class="annotation-card"><strong>Does search remain consistent?</strong><span>Weak rankings can shape interpretation. New data can skew results.</span></div>
@@ -2060,27 +2151,28 @@ Thread statement: Show how CSSE used judgment to select three consequential, dem
 
 <!-- _class: mitigate -->
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control active"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control active"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
 
-## Controls Chosen to Match the Risks
+## CSSE Right-Sized Controls to the Selected Risks
 
 <!--
-Thread statement: Show that CSSE selected proportionate controls for consistent search, fresh data, and controlled growth, and made each one inspectable in the demo.
+Thread statement: Make the second act of judgment visible: CSSE chose the lightest controls that make the selected risks manageable and inspectable for a pilot.
 
 - For consistency, run representative queries and show both the ranked images and retrieval metrics. Repeat the same query set after changes so quality shifts are visible rather than anecdotal.
 - For freshness, append a new batch, update the index, and confirm that the new observations are searchable with their source metadata intact.
 - For controlled growth, use repeatable batch ingestion, reruns, recovery paths, and measured throughput and latency so expansion does not require rebuilding the workflow.
+- These controls are proportionate to a pilot. Production SLOs, full-scale resilience, and operational hardening are deliberately deferred until evidence justifies that investment.
 - Call out the operational controls behind the interface: repeatable scripts, explicit recovery paths, and documented deployment comparisons reduce dependence on one developer or environment.
 - If the live system is unavailable, use the recorded fallback and narrate the same checkpoints. The evidence should survive the demo format.
 - Transition: "The controls are visible; the next question is what the current evidence actually proves."
 -->
 
-<div class="map-takeaway">Consistent search → refreshable index → controlled growth</div>
+<div class="map-takeaway">Enough control for a credible pilot without prematurely building a production service.</div>
 
-<div class="annotation-map">
-  <img src="assets/generated/inquire-controls.png" alt="Biodiversity image search moving through consistency, refresh, and growth controls">
+<div class="side-annotation-map">
+  <img class="visual-controls" src="assets/generated/inquire-controls.png" alt="Biodiversity image search moving through consistency, refresh, and growth controls">
 
-  <div class="annotation-row">
+  <div class="side-callouts">
     <div class="annotation-card"><strong>Keep search consistent</strong><span>Fixed queries, rankings, metrics, and thresholds.</span></div>
     <div class="annotation-card"><strong>Keep results fresh</strong><span>Append data, refresh the index, and preserve source context.</span></div>
     <div class="annotation-card"><strong>Grow without rebuilding</strong><span>Repeatable batches, measured behavior, and recovery paths.</span></div>
@@ -2092,12 +2184,12 @@ Thread statement: Show that CSSE selected proportionate controls for consistent 
 
 <!-- _class: value -->
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span></div>
 
-## What the Demo Can and Cannot Prove
+## CSSE Defined What the Current Evidence Can Support
 
 <!--
-Thread statement: Separate direct live proof, captured benchmark evidence, and target-state readiness so the investment claim remains credible.
+Thread statement: Make the third act of judgment visible: CSSE defines what evidence is sufficient for the next decision and prevents the team from overclaiming.
 
 - Read the cards as evidence for the three concerns introduced on Slide 6: consistency, freshness, and growth.
 - Consistency: precision at 10 asks how many of the first ten results are relevant; NDCG at 10 also rewards placing the most relevant results higher in the ranking. Together they establish a repeatable quality baseline.
@@ -2111,52 +2203,24 @@ Thread statement: Separate direct live proof, captured benchmark evidence, and t
 - Transition: use the strength of the evidence—and the remaining uncertainty—to decide the next bounded increment.
 -->
 
-<div class="map-takeaway">Pilot-scale evidence for consistent search, a fresh index, and controlled growth.</div>
+<div class="map-takeaway">The evidence supports a pilot not production readiness or quantified risk reduction.</div>
 
-<div class="annotation-map">
-  <img src="assets/generated/evidence-boundary.png" alt="Prototype evidence supporting a pilot, with production beyond the current evidence boundary">
+<div class="side-annotation-map">
+  <img class="visual-evidence" src="assets/generated/evidence-boundary.png" alt="Prototype evidence supporting a pilot, with production beyond the current evidence boundary">
 
-  <div class="annotation-row">
-    <div class="annotation-card"><strong>Consistent search</strong><span>0.72 P@10 / 0.81 NDCG@10 establish a repeatable baseline.</span></div>
-    <div class="annotation-card"><strong>Fresh index</strong><span>24 → 48 vectors; appended data became searchable.</span></div>
-    <div class="annotation-card"><strong>Controlled growth</strong><span>418 ms p95; runtime behavior and recovery remain measurable.</span></div>
+  <div class="side-callouts">
+    <div class="annotation-card"><strong>Quality changes are detectable</strong><span>0.72 P@10 / 0.81 NDCG@10 establish a repeatable baseline.</span></div>
+    <div class="annotation-card"><strong>The refresh path works</strong><span>24 → 48 vectors; appended data became searchable.</span></div>
+    <div class="annotation-card"><strong>Runtime remains measurable</strong><span>418 ms p95; behavior and recovery can be evaluated.</span></div>
   </div>
 </div>
 
 
 ---
 
-<!-- _class: outcome-product-slide -->
+<!-- _class: team 
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision active"><b>→</b>Outcome</span></div>
-
-## Outcome: `inquire-vector-search`
-
-<div class="map-takeaway">Outcome: consistent search, a fresh index, and a measurable path to controlled growth.</div>
-
-<div class="product-outcome">
-  <div class="product-shot"><img src="assets/01-director-overview.png" alt="iNaturalist x INQUIRE vector-search portal showing source, ingestion, indexing, search, review, and live evidence"></div>
-  <div class="outcome-stack">
-    <div class="outcome-card"><strong>Consistent search</strong><span>Fixed queries, rankings, metrics, and thresholds make quality changes visible.</span></div>
-    <div class="outcome-card"><strong>Fresh index</strong><span>New batches become searchable while retaining result-level provenance.</span></div>
-    <div class="outcome-card"><strong>Controlled growth</strong><span>Repeatable ingestion, runtime measures, and recovery controls support a pilot.</span></div>
-  </div>
-</div>
-
-<!--
-Thread statement: Name inquire-vector-search as the concrete outcome of CSSE involvement after the controls and evidence have been established.
-
-- The existing inquire-vector-search public API remains the source pipeline; the demo backend adapts it without replacing or changing that interface.
-- CSSE contribution shown here includes consistent query evaluation, traceable result presentation, repeatable batch ingestion and append, runtime evidence, operating controls, validation, documentation, and a reproducible delivery path.
-- The bounded live workflow supports a prototype-to-pilot decision. It does not prove production SLOs or full iNaturalist scale.
-- Transition: "The next slide shows the cross-functional team capable of carrying the same judgment into the next research challenge."
--->
-
----
-
-<!-- _class: team -->
-
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>-->
 
 ## The Team Behind the Controls
 
@@ -2197,8 +2261,6 @@ Thread statement: Answer "Who is GT CSSE?" immediately after the example has dem
 
 <!-- _class: cta -->
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision active"><b>→</b>Outcome</span></div>
-
 # Protect the Research Outcome Before Software Risk Compounds.
 
 <!--
@@ -2238,7 +2300,7 @@ Supporting information for discussion
 
 <!-- _class: risk -->
 
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span></div>
 
 ## Alternative: The Public Record
 
@@ -2255,40 +2317,71 @@ Supporting information for discussion
   - USENIX, "Package Hallucinations: How LLMs Can Invent Vulnerabilities": https://www.usenix.org/publications/loginonline/we-have-package-you-comprehensive-analysis-package-hallucinations-code
 -->
 
-<div class="map-takeaway">Research harm due to software is real—and documented in the public record.</div>
+<div class="map-takeaway">Observed harms span validity, reproducibility, continuity, and AI-assisted development.</div>
 
-<div class="news-grid">
-  <div class="news-card">
-    <img src="assets/news-coverage/fmri-wired.jpg" alt="WIRED article artwork showing a brain scan">
-    <div class="news-copy"><small>WIRED · 2016</small><strong>Bug in fMRI software calls 15 years of research into question</strong><span>False-positive rates reached 70%.</span></div>
+<div class="evidence-grid">
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/fmri.png" alt="Brain scan illustrating invalid fMRI inference">
+    <div class="evidence-copy"><strong>fMRI inference</strong><span>Common methods produced false-positive rates up to <strong>70%</strong>.</span><small>PNAS · 2016</small></div>
   </div>
-  <div class="news-card">
-    <img src="assets/news-coverage/genomics-nature.jpg" alt="Nature article artwork about spreadsheet gene-name errors">
-    <div class="news-copy"><small>Nature · 2021</small><strong>Autocorrect errors in Excel still creating genomics headache</strong><span>Gene names were silently converted into dates.</span></div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/genomic-data.png" alt="Spreadsheet illustrating altered genomic data">
+    <div class="evidence-copy"><strong>Genomic data</strong><span>Spreadsheet behavior silently converted gene names into dates.</span><small>PLOS · 2021</small></div>
   </div>
-  <div class="news-card">
-    <img src="assets/news-coverage/code-scientific-data.png" alt="Scientific Data article figure about research code execution">
-    <div class="news-copy"><small>Scientific Data · 2022</small><strong>A large-scale study on research code quality and execution</strong><span>74% of tested R files failed initially.</span></div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/shared-code.png" alt="Code window illustrating failed execution">
+    <div class="evidence-copy"><strong>Shared code</strong><span><strong>74%</strong> of tested R files failed initial execution.</span><small>Scientific Data · 2022</small></div>
   </div>
-  <div class="news-card">
-    <img src="assets/news-coverage/duke-nature.jpg" alt="Duke University campus accompanying Nature coverage">
-    <div class="news-copy"><small>Nature News · 2011</small><strong>Report reveals missteps in Duke cancer trial review</strong><span>Faulty predictors underpinned three trials.</span></div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/clinical-trials.png" alt="Clinical test illustrating invalid predictors">
+    <div class="evidence-copy"><strong>Clinical trials</strong><span>Invalid omics-based predictors were used in three cancer trials.</span><small>IOM · 2012</small></div>
   </div>
-  <div class="news-card">
-    <img src="assets/news-coverage/british-library.jpg" alt="British Library exterior accompanying cyber-attack coverage">
-    <div class="news-copy"><small>Nature · 2024</small><strong>Cyberattacks on knowledge institutions are increasing</strong><span>Research access was disrupted for months.</span></div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/research-access.png" alt="Locked digital archive illustrating interrupted access">
+    <div class="evidence-copy"><strong>Research access</strong><span>Ransomware removed access to most British Library online systems.</span><small>British Library · 2024</small></div>
   </div>
-  <div class="news-card">
-    <img src="assets/news-coverage/ai-usenix.png" alt="USENIX article artwork about package hallucinations">
-    <div class="news-copy"><small>USENIX · 2025</small><strong>Package Hallucinations: How LLMs Can Invent Vulnerabilities</strong><span>205,474 nonexistent package names were generated.</span></div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/ai-dependencies.png" alt="AI-generated code illustrating invented dependencies">
+    <div class="evidence-copy"><strong>AI dependencies</strong><span>Code models generated <strong>205,474</strong> unique nonexistent package names.</span><small>Spracklen et al. · 2024</small></div>
   </div>
+</div>
+
+---
+
+<!-- _class: risk -->
+
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span></div>
+
+## Backup: Software Errors That Led to Retractions
+
+<!--
+- Use these cases to show that small research-software and data-processing errors can invalidate conclusions across disciplines.
+- Distinguish programming defects from data-coding errors; "coding error" does not always mean a defect in source code.
+- [Sources]
+  - Retraction Watch, climate-analysis coding error: https://retractionwatch.com/2015/04/09/stats-error-has-chilling-effect-on-global-warming-paper/
+  - Retraction Watch, pediatric long-COVID coding errors: https://retractionwatch.com/2024/08/20/coding-errors-prompt-retraction-of-paper-on-long-covid-in-kids/
+  - Retraction Watch, fake-news software bug and erroneous data: https://retractionwatch.com/2019/01/09/oft-quoted-paper-on-spread-of-fake-news-turns-out-to-befake-news/
+  - Retraction Watch, auditory-psychology script error: https://retractionwatch.com/2019/08/13/doing-the-right-thing-psychology-researchers-retract-paper-three-days-after-learning-of-coding-error/
+  - Retraction Watch, EPA variable-coding error: https://retractionwatch.com/2013/01/04/paper-on-evidence-for-environmental-racism-in-epa-polluter-fines-retracted-for-coding-error/
+  - Retraction Watch, one-line cancer-study programming error: https://retractionwatch.com/2016/09/26/coding-error-sinks-cancer-study/
+-->
+
+<div class="map-takeaway">Small defects can erase conclusions across climate, health, psychology, and social science.</div>
+
+<div class="retraction-grid">
+  <div class="retraction-card"><img src="assets/generated/retraction-cases/climate-code.png" alt="Mountain plants beside faulty analysis code"><div class="retraction-copy"><small>Climate · analysis code</small><strong>Code created an apparent downward species shift</strong><span>The null-model error invalidated a major conclusion.</span></div></div>
+  <div class="retraction-card"><img src="assets/generated/retraction-cases/long-covid-data.png" alt="Child health data routed into an incorrect category"><div class="retraction-copy"><small>Child health · data processing</small><strong>Long-COVID incidence was understated</strong><span>Correction changed the estimate from 0.4% to 1.4%.</span></div></div>
+  <div class="retraction-card"><img src="assets/generated/retraction-cases/fake-news-model.png" alt="Social media model with software bug warning"><div class="retraction-copy"><small>Social media · software + data</small><strong>A fake-news conclusion became unsupported</strong><span>A software bug and erroneous inputs broke the model claim.</span></div></div>
+  <div class="retraction-card"><img src="assets/generated/retraction-cases/psychology-script.png" alt="Auditory experiment with a broken script"><div class="retraction-copy"><small>Psychology · experiment script</small><strong>A script error invalidated experimental effects</strong><span>Prior-trial fluency was coded incorrectly.</span></div></div>
+  <div class="retraction-card"><img src="assets/generated/retraction-cases/epa-coding.png" alt="Swapped binary values beside an environmental enforcement chart"><div class="retraction-copy"><small>Environmental justice · data coding</small><strong>Reversed values voided the EPA analysis</strong><span>Correcting the binary variable changed the findings.</span></div></div>
+  <div class="retraction-card"><img src="assets/generated/retraction-cases/cancer-code.png" alt="Cancer research microscopy beside a faulty line of code"><div class="retraction-copy"><small>Cancer research · program logic</small><strong>One faulty line caused a study retraction</strong><span>The defect changed calculated results.</span></div></div>
 </div>
 
 ---
 
 <!-- _class: risk hazard-focus -->
 
-<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
 
 ## Backup: Additional Condition-to-Hazard Mappings
 
