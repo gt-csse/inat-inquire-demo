@@ -1333,6 +1333,339 @@ style: |
   .risk-callout.top { top: 0; }
   .risk-callout.bottom { bottom: 0; }
 
+  .risk-side-map {
+    display: grid;
+    grid-template-columns: 235px minmax(0, 1fr) 235px;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+    max-width: 1120px;
+    height: 405px;
+    margin: 14px auto 0;
+  }
+
+  .risk-side-map > img {
+    align-self: center;
+    width: 100%;
+    height: 405px;
+    object-fit: contain;
+  }
+
+  .risk-side-column {
+    display: grid;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .risk-side-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(0,48,87,0.14);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.95);
+    padding: 12px 14px;
+    box-sizing: border-box;
+  }
+
+  .risk-side-column.left .risk-side-card {
+    border-right: 5px solid var(--gold);
+    text-align: right;
+  }
+
+  .risk-side-column.right .risk-side-card {
+    border-left: 5px solid var(--gold);
+    text-align: left;
+  }
+
+  .risk-side-column.left .risk-side-card::after,
+  .risk-side-column.right .risk-side-card::before {
+    position: absolute;
+    top: 50%;
+    width: 15px;
+    height: 2px;
+    background: var(--gold);
+    content: "";
+  }
+
+  .risk-side-column.left .risk-side-card::after {
+    right: -19px;
+  }
+
+  .risk-side-column.right .risk-side-card::before {
+    left: -19px;
+  }
+
+  .risk-side-card strong {
+    color: var(--navy);
+    font-size: 17px;
+    line-height: 1.1;
+  }
+
+  .risk-side-card span {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.18;
+    font-weight: 740;
+  }
+
+  section:has(.risk-side-map) {
+    justify-content: flex-start;
+  }
+
+  section:has(.risk-side-map) h2 {
+    margin-bottom: 4px;
+  }
+
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 16px auto 0;
+  }
+
+  .evidence-block {
+    display: grid;
+    grid-template-columns: 118px minmax(0, 1fr);
+    align-items: center;
+    min-height: 142px;
+    overflow: hidden;
+    border: 1px solid rgba(0,48,87,0.14);
+    border-left: 5px solid var(--orange);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.94);
+    padding: 10px 12px 10px 8px;
+    box-sizing: border-box;
+  }
+
+  .evidence-block img {
+    width: 108px;
+    height: 108px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .evidence-copy {
+    padding-left: 9px;
+  }
+
+  .evidence-copy strong,
+  .evidence-copy span,
+  .evidence-copy small {
+    display: block;
+  }
+
+  .evidence-copy strong {
+    color: var(--navy);
+    font-size: 17px;
+    line-height: 1.08;
+  }
+
+  .evidence-copy span {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.18;
+    font-weight: 740;
+  }
+
+  .evidence-copy span strong {
+    display: inline;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .evidence-copy small {
+    margin-top: 6px;
+    color: var(--blue);
+    font-size: 11px;
+    line-height: 1.1;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  section:has(.evidence-grid) {
+    justify-content: flex-start;
+  }
+
+  section:has(.evidence-grid) h2 {
+    margin-bottom: 4px;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 14px auto 0;
+  }
+
+  .news-card {
+    overflow: hidden;
+    min-height: 190px;
+    border: 1px solid rgba(0,48,87,0.16);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 5px 14px rgba(0,48,87,0.07);
+  }
+
+  .news-card img {
+    display: block;
+    width: 100%;
+    height: 103px;
+    object-fit: cover;
+    border-bottom: 4px solid var(--orange);
+  }
+
+  .news-copy {
+    padding: 8px 11px 10px;
+  }
+
+  .news-copy small,
+  .news-copy strong,
+  .news-copy span {
+    display: block;
+  }
+
+  .news-copy small {
+    color: var(--blue);
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .news-copy strong {
+    margin-top: 5px;
+    color: var(--navy);
+    font-size: 14px;
+    line-height: 1.12;
+  }
+
+  .news-copy span {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.12;
+    font-weight: 740;
+  }
+
+  section:has(.news-grid) {
+    justify-content: flex-start;
+  }
+
+  section:has(.news-grid) h2 {
+    margin-bottom: 4px;
+  }
+
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 12px auto 0;
+  }
+
+  .snapshot-card {
+    overflow: hidden;
+    min-height: 194px;
+    border: 1px solid rgba(0,48,87,0.2);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(0,48,87,0.09);
+  }
+
+  .snapshot-bar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 18px;
+    padding: 0 8px;
+    background: #e8ebee;
+  }
+
+  .snapshot-bar i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #aeb6bd;
+  }
+
+  .snapshot-source {
+    padding: 6px 10px 5px;
+    border-bottom: 1px solid #e1e5e8;
+    color: var(--blue);
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .snapshot-body {
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    min-height: 164px;
+  }
+
+  .snapshot-body img {
+    width: 104px;
+    height: 164px;
+    object-fit: cover;
+    border-right: 4px solid var(--orange);
+  }
+
+  .snapshot-copy {
+    padding: 9px 10px;
+  }
+
+  .snapshot-copy strong,
+  .snapshot-copy span,
+  .snapshot-copy small {
+    display: block;
+  }
+
+  .snapshot-copy strong {
+    color: var(--navy);
+    font-family: var(--font-serif);
+    font-size: 14px;
+    line-height: 1.12;
+  }
+
+  .snapshot-copy span {
+    margin-top: 8px;
+    color: var(--ink);
+    font-size: 12px;
+    line-height: 1.15;
+    font-weight: 780;
+  }
+
+  .snapshot-copy small {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 9px;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+
+  section:has(.snapshot-grid) {
+    justify-content: flex-start;
+  }
+
+  section:has(.snapshot-grid) h2 {
+    margin-bottom: 4px;
+  }
+
   section:has(.risk-map) {
     justify-content: center;
   }
@@ -1525,6 +1858,54 @@ style: |
 
 ---
 
+<!-- _class: risk -->
+
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+
+## Research Harm Due to Software Is Real
+
+<!--
+- Use two or three examples suited to the audience; do not narrate every card.
+- Distinguish observed harm from measured exposure. The AI package study demonstrates a repeatable exposure mechanism, not a catalog of downstream scientific incidents.
+- Invalid fMRI inferences: common methods produced false-positive rates up to 70%; testing also uncovered a 15-year-old bug. PNAS, 2016: https://doi.org/10.1073/pnas.1602413113
+- Genomic data silently altered: approximately 30% of examined papers with supplementary gene lists contained gene-name errors. PLOS, 2021: https://doi.org/10.1371/journal.pcbi.1008984
+- Shared code would not run: 74% of more than 9,000 shared R files failed initial execution in a clean environment. Scientific Data, 2022: https://doi.org/10.1038/s41597-022-01143-6
+- Invalid tests reached patients: invalid omics-based predictors were used in three Duke cancer clinical trials. IOM, 2012: https://www.ncbi.nlm.nih.gov/books/NBK202172/
+- Researchers lost access: a ransomware attack removed access to most British Library online systems. British Library, 2024: https://www.bl.uk/stories/blogs/posts/learning-lessons-from-the-cyber-attack
+- AI invented dependencies: code LLMs generated 205,474 unique nonexistent package names. Spracklen et al., 2024: https://arxiv.org/abs/2406.10279
+-->
+
+<div class="map-takeaway">Observed harms span validity, reproducibility, continuity, and AI-assisted development.</div>
+
+<div class="evidence-grid">
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/fmri.png" alt="Brain scan illustrating invalid fMRI inference">
+    <div class="evidence-copy"><strong>fMRI inference</strong><span>Common methods produced false-positive rates up to <strong>70%</strong>.</span><small>PNAS · 2016</small></div>
+  </div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/genomic-data.png" alt="Spreadsheet illustrating altered genomic data">
+    <div class="evidence-copy"><strong>Genomic data</strong><span>Spreadsheet behavior silently converted gene names into dates.</span><small>PLOS · 2021</small></div>
+  </div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/shared-code.png" alt="Code window illustrating failed execution">
+    <div class="evidence-copy"><strong>Shared code</strong><span><strong>74%</strong> of tested R files failed initial execution.</span><small>Scientific Data · 2022</small></div>
+  </div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/clinical-trials.png" alt="Clinical test illustrating invalid predictors">
+    <div class="evidence-copy"><strong>Clinical trials</strong><span>Invalid omics-based predictors were used in three cancer trials.</span><small>IOM · 2012</small></div>
+  </div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/research-access.png" alt="Locked digital archive illustrating interrupted access">
+    <div class="evidence-copy"><strong>Research access</strong><span>Ransomware removed access to most British Library online systems.</span><small>British Library · 2024</small></div>
+  </div>
+  <div class="evidence-block">
+    <img src="assets/generated/public-evidence-blocks/ai-dependencies.png" alt="AI-generated code illustrating invented dependencies">
+    <div class="evidence-copy"><strong>AI dependencies</strong><span>Code models generated <strong>205,474</strong> unique nonexistent package names.</span><small>Spracklen et al. · 2024</small></div>
+  </div>
+</div>
+
+---
+
 <!-- _class: risk hazard-focus -->
 
 <div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div> 
@@ -1537,30 +1918,28 @@ Thread statement: Combine the scientific-assumption tension and recurring resear
 - Researchers narrow a problem deliberately to isolate a phenomenon. This is sound scientific reasoning, not a mistake.
 - The hazard emerges when software travels beyond the data, environment, user, scale, or purpose for which those assumptions were valid.
 - Root conditions are not failures of commitment or intelligence. They describe the normal environment in which research software is created.
-- Complete reusable hazard library for director-specific customization:
-  - Undocumented assumptions and decisions.
-  - Insufficient scientific verification.
-  - Irreproducible environments and workflows.
-  - Prototype code becoming critical infrastructure.
-  - Accumulated technical debt.
-  - Platform-specific or overly complex optimization.
-  - Inadequate testing and release practices.
-- Alternatives for specific rooms include privacy, security, accessibility, regulatory obligations, model drift, scaling, and long-term sustainability.
+- Walk through the six visible conditions in the same order as the slide: evolving research, concentrated knowledge, limited capacity, temporary funding, prototype reuse, and AI acceleration.
+- The connecting lines matter: these conditions often interact, so a local assumption or temporary shortcut can become a system-level hazard as the research evolves.
+- Use the backup slide only when a different audience needs alternative conditions such as interdisciplinary communication, delivery pressure, changing dependencies, growing scale, or fragmented ownership.
 - Transition: "Those hazards do not remain inside the software. The research program bears the consequences."
 -->
 
 <div class="map-takeaway">Risk appears when software outlives its original assumptions.</div>
 
-<div class="risk-map">
-  <div class="risk-callout top left"><strong>Evolving research</strong><span>Data, methods, and questions change.</span></div>
-  <div class="risk-callout top center"><strong>Concentrated knowledge</strong><span>Assumptions remain with one person.</span></div>
-  <div class="risk-callout top right"><strong>Limited capacity</strong><span>Testing and verification stay incomplete.</span></div>
+<div class="risk-side-map">
+  <div class="risk-side-column left">
+    <div class="risk-side-card"><strong>Evolving research</strong><span>Data, methods, and questions change.</span></div>
+    <div class="risk-side-card"><strong>Concentrated knowledge</strong><span>Assumptions remain with one person.</span></div>
+    <div class="risk-side-card"><strong>Temporary funding</strong><span>Maintenance ends before use does.</span></div>
+  </div>
 
   <img src="assets/generated/risk-ecosystem.png" alt="Six connected sources of research-software risk">
 
-  <div class="risk-callout bottom left"><strong>Temporary funding</strong><span>Maintenance ends before use does.</span></div>
-  <div class="risk-callout bottom center"><strong>Prototype reuse</strong><span>One-time code becomes infrastructure.</span></div>
-  <div class="risk-callout bottom right"><strong>AI acceleration</strong><span>Production outruns validation.</span></div>
+  <div class="risk-side-column right">
+    <div class="risk-side-card"><strong>Limited capacity</strong><span>Testing and verification stay incomplete.</span></div>
+    <div class="risk-side-card"><strong>Prototype reuse</strong><span>One-time code becomes infrastructure.</span></div>
+    <div class="risk-side-card"><strong>AI acceleration</strong><span>Production outruns validation.</span></div>
+  </div>
 </div>
 
 ---
@@ -1575,16 +1954,13 @@ Thread statement: Combine the scientific-assumption tension and recurring resear
 Thread statement: Establish that the consequences are real, then show how AI increases the rate and reach of the exposure.
 
 - Keep the distinction clear: a hazard is the potential for failure; harm is the consequence to the research program.
-- Director-specific mapping library:
-  - Undocumented assumptions and decisions -> incorrect conclusions that cannot be adequately explained or defended.
-  - Insufficient scientific verification -> invalid findings or poorly informed research decisions.
-  - Irreproducible environments and workflows -> published results that others—or the original team—cannot reproduce.
-  - Prototype code becomes critical infrastructure -> research delays when fragile software must be rebuilt under pressure.
-  - Accumulated technical debt -> new models, data, and methods become difficult or costly to incorporate.
-  - Platform-specific or overly complex optimization -> essential software becomes inaccessible, unusable, or unsupported.
-  - Inadequate testing and release practices -> research time and funding are diverted into diagnosis and remediation.
+- Follow the four visible consequences: validity, reproducibility, research time, and continuity.
+- Validity: incorrect behavior can alter data, rankings, or conclusions.
+- Reproducibility: environments, workflows, or undocumented assumptions can prevent verification and extension.
+- Research time: diagnosis, repair, and rebuilding displace discovery.
+- Continuity: essential tools and concentrated knowledge can disappear when funding, people, or systems change.
 - AI is an amplifier rather than a separate category of harm: it increases the speed, volume, and apparent credibility of software that still requires validation.
-- The genomics example demonstrates that apparently benign software behavior can alter scientific data. The AI evidence shows how quickly plausible but unverified implementations can now be produced and propagated.
+- Connect these categories back to the documented cases on Slide 2 rather than introducing new examples here.
 - Sources:
   - Eklund et al. (2016), fMRI clusterwise inference false-positive rates: https://doi.org/10.1073/pnas.1602413113
   - Trisovic et al. (2022), large-scale research-code execution study: https://doi.org/10.1038/s41597-022-01143-6
@@ -1658,22 +2034,24 @@ Thread statement: Show how CSSE used judgment to select three consequential, dem
 
 - iNaturalist provides the motivating scale: more than 300 million observations and continued growth. INQUIRE is the concrete evaluation setting, with 250 expert information needs over the 5-million-image iNat24 collection.
 - Keep those numbers distinct: 300 million describes the broader iNaturalist context; 5 million describes the benchmark collection used by INQUIRE.
-- Natural-language retrieval is useful because researchers may describe behavior, habitat, or visual relationships that are not captured by a species label alone.
-- The research risk is not simply that a search result looks imperfect. Weak retrieval can change which examples a researcher sees and therefore influence downstream interpretation.
-- Provenance matters because a result must be traceable back to its source observation and associated metadata before it can support research.
-- Growth creates an engineering risk as well: a promising prototype can become expensive to rerun, extend, or operate if ingestion and indexing are brittle.
+- The goal is to enable INQUIRE-like natural-language search over iNaturalist data, including descriptions of behavior, habitat, or visual relationships that a species label alone may not capture.
+- Consistency risk: rankings can shift as data and software change, shaping which examples a researcher sees and potentially influencing interpretation.
+- Freshness risk: new observations must enter the index quickly and predictably or the search view falls behind the underlying collection.
+- Growth risk: increasing data volume should not force the team to rebuild ingestion, indexing, search, or recovery workflows.
 - Transition: "These three risks determine the controls shown in the demo; everything else is deliberately out of scope."
 -->
 
-<div class="map-takeaway">300M+ observations · 250 expert queries · 5M benchmark images</div>
+<div class="map-takeaway">iNaturalist: 300M+ observations · new images added daily</div>
+<div class="map-takeaway">INQUIRE: 250 expert queries · 5M benchmark images</div>
+<div class="map-takeaway">Goal: Enable INQUIRE-like natural-language search on iNaturalist</div>
 
 <div class="side-annotation-map">
-  <img src="assets/generated/inquire-risks.png" alt="Biodiversity image search facing relevance, traceability, and growth risks">
+  <img src="assets/generated/inquire-risks.png" alt="Biodiversity image search facing consistency, freshness, and growth risks">
 
   <div class="side-callouts">
-    <div class="annotation-card"><strong>Is it relevant?</strong><span>Weak rankings can shape interpretation.</span></div>
-    <div class="annotation-card"><strong>Can we trace it?</strong><span>Every result needs source and usage context.</span></div>
-    <div class="annotation-card"><strong>Can it grow?</strong><span>Expansion should not require rebuilding.</span></div>
+    <div class="annotation-card"><strong>Does search remain consistent?</strong><span>Weak rankings can shape interpretation. New data can skew results.</span></div>
+    <div class="annotation-card"><strong>Does search remain fresh?</strong><span>New observations should enter the index quickly and predictably.</span></div>
+    <div class="annotation-card"><strong>Can it grow?</strong><span>Increasing volume should not require rebuilding.</span></div>
   </div>
 </div>
 
@@ -1687,25 +2065,25 @@ Thread statement: Show how CSSE used judgment to select three consequential, dem
 ## Controls Chosen to Match the Risks
 
 <!--
-Thread statement: Show that CSSE selected proportionate controls and made each one inspectable in the demo.
+Thread statement: Show that CSSE selected proportionate controls for consistent search, fresh data, and controlled growth, and made each one inspectable in the demo.
 
-- Start with evaluation: run representative queries and show both the ranked images and the retrieval metrics. The point is to make quality review repeatable, not to rely on a compelling anecdotal query.
-- For traceability, open an individual result and point out the score, source ID, URL, license, dimensions, and object key. These fields connect a retrieved image back to evidence a researcher can verify.
-- For controlled growth, demonstrate the same workflow before and after appending data: ingest, index, search, and rerun. The small 24-to-48-vector example illustrates the mechanism; it is not intended to simulate iNaturalist's full scale.
+- For consistency, run representative queries and show both the ranked images and retrieval metrics. Repeat the same query set after changes so quality shifts are visible rather than anecdotal.
+- For freshness, append a new batch, update the index, and confirm that the new observations are searchable with their source metadata intact.
+- For controlled growth, use repeatable batch ingestion, reruns, recovery paths, and measured throughput and latency so expansion does not require rebuilding the workflow.
 - Call out the operational controls behind the interface: repeatable scripts, explicit recovery paths, and documented deployment comparisons reduce dependence on one developer or environment.
 - If the live system is unavailable, use the recorded fallback and narrate the same checkpoints. The evidence should survive the demo format.
 - Transition: "The controls are visible; the next question is what the current evidence actually proves."
 -->
 
-<div class="map-takeaway">Representative queries → inspectable evidence → repeatable expansion</div>
+<div class="map-takeaway">Consistent search → refreshable index → controlled growth</div>
 
 <div class="annotation-map">
-  <img src="assets/generated/inquire-controls.png" alt="Biodiversity image search moving through evaluation, traceability, and growth controls">
+  <img src="assets/generated/inquire-controls.png" alt="Biodiversity image search moving through consistency, refresh, and growth controls">
 
   <div class="annotation-row">
-    <div class="annotation-card"><strong>Evaluate</strong><span>Representative queries, rankings, and thresholds.</span></div>
-    <div class="annotation-card"><strong>Trace</strong><span>Scores, IDs, URLs, licenses, and object keys.</span></div>
-    <div class="annotation-card"><strong>Grow</strong><span>Repeatable batches, reruns, and recovery paths.</span></div>
+    <div class="annotation-card"><strong>Keep search consistent</strong><span>Fixed queries, rankings, metrics, and thresholds.</span></div>
+    <div class="annotation-card"><strong>Keep results fresh</strong><span>Append data, refresh the index, and preserve source context.</span></div>
+    <div class="annotation-card"><strong>Grow without rebuilding</strong><span>Repeatable batches, measured behavior, and recovery paths.</span></div>
   </div>
 </div>
 
@@ -1721,26 +2099,27 @@ Thread statement: Show that CSSE selected proportionate controls and made each o
 <!--
 Thread statement: Separate direct live proof, captured benchmark evidence, and target-state readiness so the investment claim remains credible.
 
-- Read the cards as control-to-evidence pairs, not as three unrelated performance claims.
-- Evaluation gates: precision at 10 asks how many of the first ten results are relevant; NDCG at 10 also rewards placing the most relevant results higher in the ranking. Together they provide a more useful view than a single showcase query.
-- Traceability: source-level identifiers, URLs, licenses, dimensions, and object keys let a reviewer follow a result back through the retrieval pipeline and assess whether it is usable.
-- Controlled growth: ingestion throughput, p95 search latency, repeatable recovery, and deployment comparisons show that scaling behavior can be measured and revisited.
+- Read the cards as evidence for the three concerns introduced on Slide 6: consistency, freshness, and growth.
+- Consistency: precision at 10 asks how many of the first ten results are relevant; NDCG at 10 also rewards placing the most relevant results higher in the ranking. Together they establish a repeatable quality baseline.
+- Freshness: the 24-to-48-vector append demonstrates that new data can enter the same search workflow and become queryable without rebuilding the index from scratch.
+- Controlled growth: ingestion throughput, p95 search latency, repeatable recovery, and deployment comparisons make scaling behavior visible and revisitable.
+- The checked-in benchmark reports 418 ms p95 search latency: data/evidence/benchmark-summary.json.
 - Be explicit about the boundary of the claim: these are demo measurements from a limited test setup. They are evidence that the controls work, not production service-level objectives or proof of quantified risk reduction.
 - The investment implication is conditional: this evidence can justify a pilot, while a production service would require larger-scale validation, agreed thresholds, monitoring, and operational ownership.
-- The checked-in benchmark values are curated presentation evidence. The final raw benchmark export remains an evidence gap and should be captured before treating them as a fresh benchmark run.
+- The checked-in benchmark values are curated presentation evidence. The final raw benchmark export remains an evidence gap and should be captured before treating them as a new benchmark run.
 - Production-readiness controls are a target operating model derived from the source architecture and demo assumptions; they are not evidence of a deployed production service.
 - Transition: use the strength of the evidence—and the remaining uncertainty—to decide the next bounded increment.
 -->
 
-<div class="map-takeaway">Evidence supports the next pilot not a production claim.</div>
+<div class="map-takeaway">Pilot-scale evidence for consistent search, a fresh index, and controlled growth.</div>
 
 <div class="annotation-map">
   <img src="assets/generated/evidence-boundary.png" alt="Prototype evidence supporting a pilot, with production beyond the current evidence boundary">
 
   <div class="annotation-row">
-    <div class="annotation-card"><strong>0.72 / 0.81</strong><span>P@10 / NDCG@10 evaluation evidence</span></div>
-    <div class="annotation-card"><strong>Inspectable</strong><span>Source-level traceability supports a pilot.</span></div>
-    <div class="annotation-card"><strong>24 → 48</strong><span>Repeatable growth not production scale.</span></div>
+    <div class="annotation-card"><strong>Consistent search</strong><span>0.72 P@10 / 0.81 NDCG@10 establish a repeatable baseline.</span></div>
+    <div class="annotation-card"><strong>Fresh index</strong><span>24 → 48 vectors; appended data became searchable.</span></div>
+    <div class="annotation-card"><strong>Controlled growth</strong><span>418 ms p95; runtime behavior and recovery remain measurable.</span></div>
   </div>
 </div>
 
@@ -1753,22 +2132,22 @@ Thread statement: Separate direct live proof, captured benchmark evidence, and t
 
 ## Outcome: `inquire-vector-search`
 
-<div class="map-takeaway">SSE involvement made the research pipeline inspectable, repeatable, and ready for the next bounded increment.</div>
+<div class="map-takeaway">Outcome: consistent search, a fresh index, and a measurable path to controlled growth.</div>
 
 <div class="product-outcome">
   <div class="product-shot"><img src="assets/01-director-overview.png" alt="iNaturalist x INQUIRE vector-search portal showing source, ingestion, indexing, search, review, and live evidence"></div>
   <div class="outcome-stack">
-    <div class="outcome-card"><strong>Inspectable research workflow</strong><span>Source → ingest → index → search → review, with result-level provenance.</span></div>
-    <div class="outcome-card"><strong>Repeatable operating path</strong><span>Scripted ingestion, same-query reruns, metrics, validation, and recovery controls.</span></div>
-    <div class="outcome-card"><strong>Evidence for the next decision</strong><span>A demonstrable system and technical package that support a pilot—not a production claim.</span></div>
+    <div class="outcome-card"><strong>Consistent search</strong><span>Fixed queries, rankings, metrics, and thresholds make quality changes visible.</span></div>
+    <div class="outcome-card"><strong>Fresh index</strong><span>New batches become searchable while retaining result-level provenance.</span></div>
+    <div class="outcome-card"><strong>Controlled growth</strong><span>Repeatable ingestion, runtime measures, and recovery controls support a pilot.</span></div>
   </div>
 </div>
 
 <!--
-Thread statement: Name inquire-vector-search as the concrete outcome of SSE involvement after the controls and evidence have been established.
+Thread statement: Name inquire-vector-search as the concrete outcome of CSSE involvement after the controls and evidence have been established.
 
 - The existing inquire-vector-search public API remains the source pipeline; the demo backend adapts it without replacing or changing that interface.
-- SSE contribution shown here includes traceable result presentation, repeatable batch ingestion and append, runtime evidence, operating controls, validation, documentation, and a reproducible delivery path.
+- CSSE contribution shown here includes consistent query evaluation, traceable result presentation, repeatable batch ingestion and append, runtime evidence, operating controls, validation, documentation, and a reproducible delivery path.
 - The bounded live workflow supports a prototype-to-pilot decision. It does not prove production SLOs or full iNaturalist scale.
 - Transition: "The next slide shows the cross-functional team capable of carrying the same judgment into the next research challenge."
 -->
@@ -1857,6 +2236,56 @@ Supporting information for discussion
 
 ---
 
+<!-- _class: risk -->
+
+<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
+
+## Alternative: The Public Record
+
+<!--
+- This alternative visual treatment stays in backup. Keep the main Slide 2 unchanged.
+- Use two or three items suited to the audience rather than narrating all six.
+- Each card uses authentic publisher artwork paired with the exact public headline or article title.
+- Sources:
+  - WIRED, "Bug in fMRI software calls 15 years of research into question": https://www.wired.com/story/fmri-bug-brain-scans-results/
+  - Nature, "Autocorrect errors in Excel still creating genomics headache": https://www.nature.com/articles/d41586-021-02211-4
+  - Scientific Data, "A large-scale study on research code quality and execution": https://www.nature.com/articles/s41597-022-01143-6
+  - Nature News Blog, "Report reveals missteps in Duke cancer trial review": https://blogs.nature.com/blog/report_reveals_missteps_in_ini/
+  - Nature, "Cyberattacks on knowledge institutions are increasing: what can be done?": https://www.nature.com/articles/d41586-024-00323-1
+  - USENIX, "Package Hallucinations: How LLMs Can Invent Vulnerabilities": https://www.usenix.org/publications/loginonline/we-have-package-you-comprehensive-analysis-package-hallucinations-code
+-->
+
+<div class="map-takeaway">Research harm due to software is real—and documented in the public record.</div>
+
+<div class="news-grid">
+  <div class="news-card">
+    <img src="assets/news-coverage/fmri-wired.jpg" alt="WIRED article artwork showing a brain scan">
+    <div class="news-copy"><small>WIRED · 2016</small><strong>Bug in fMRI software calls 15 years of research into question</strong><span>False-positive rates reached 70%.</span></div>
+  </div>
+  <div class="news-card">
+    <img src="assets/news-coverage/genomics-nature.jpg" alt="Nature article artwork about spreadsheet gene-name errors">
+    <div class="news-copy"><small>Nature · 2021</small><strong>Autocorrect errors in Excel still creating genomics headache</strong><span>Gene names were silently converted into dates.</span></div>
+  </div>
+  <div class="news-card">
+    <img src="assets/news-coverage/code-scientific-data.png" alt="Scientific Data article figure about research code execution">
+    <div class="news-copy"><small>Scientific Data · 2022</small><strong>A large-scale study on research code quality and execution</strong><span>74% of tested R files failed initially.</span></div>
+  </div>
+  <div class="news-card">
+    <img src="assets/news-coverage/duke-nature.jpg" alt="Duke University campus accompanying Nature coverage">
+    <div class="news-copy"><small>Nature News · 2011</small><strong>Report reveals missteps in Duke cancer trial review</strong><span>Faulty predictors underpinned three trials.</span></div>
+  </div>
+  <div class="news-card">
+    <img src="assets/news-coverage/british-library.jpg" alt="British Library exterior accompanying cyber-attack coverage">
+    <div class="news-copy"><small>Nature · 2024</small><strong>Cyberattacks on knowledge institutions are increasing</strong><span>Research access was disrupted for months.</span></div>
+  </div>
+  <div class="news-card">
+    <img src="assets/news-coverage/ai-usenix.png" alt="USENIX article artwork about package hallucinations">
+    <div class="news-copy"><small>USENIX · 2025</small><strong>Package Hallucinations: How LLMs Can Invent Vulnerabilities</strong><span>205,474 nonexistent package names were generated.</span></div>
+  </div>
+</div>
+
+---
+
 <!-- _class: risk hazard-focus -->
 
 <div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
@@ -1864,7 +2293,7 @@ Supporting information for discussion
 ## Backup: Additional Condition-to-Hazard Mappings
 
 <!--
-- These six cards are alternatives for the six visible cards on Slide 2, not additional main-story content.
+- These six cards are alternatives for the six visible cards on Slide 3, not additional main-story content.
 - Select only the mappings relevant to the director or research program.
 - Interdisciplinary communication: requirements, provenance, and failure boundaries are interpreted differently across teams.
 - Publication and delivery pressure: short-term results defer validation, documentation, and maintainability.
@@ -1886,37 +2315,4 @@ Supporting information for discussion
   <div class="risk-callout bottom left"><strong>Changing dependencies</strong><span>Environment drift breaks workflows.</span></div>
   <div class="risk-callout bottom center"><strong>Growing scale</strong><span>Data and users stress brittle pipelines.</span></div>
   <div class="risk-callout bottom right"><strong>Fragmented ownership</strong><span>No one owns maintenance and handoff.</span></div>
-</div>
-
----
-
-<!-- _class: risk -->
-
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span><span class="decision"><b>→</b>Outcome</span></div>
-
-## Backup: Public Evidence That the Harms Are Real
-
-<!--
-- Use two or three examples suited to the audience; do not narrate every card.
-- Distinguish observed harm from measured exposure. The AI package study demonstrates a repeatable exposure mechanism, not a catalog of downstream scientific incidents.
-- Invalid fMRI inferences: common methods produced false-positive rates up to 70%; testing also uncovered a 15-year-old bug. PNAS, 2016: https://doi.org/10.1073/pnas.1602413113
-- Genomic data silently altered: approximately 30% of examined papers with supplementary gene lists contained gene-name errors. PLOS, 2021: https://doi.org/10.1371/journal.pcbi.1008984
-- Shared code would not run: 74% of more than 9,000 shared R files failed initial execution in a clean environment. Scientific Data, 2022: https://doi.org/10.1038/s41597-022-01143-6
-- Invalid tests reached patients: invalid omics-based predictors were used in three Duke cancer clinical trials. IOM, 2012: https://www.ncbi.nlm.nih.gov/books/NBK202172/
-- Researchers lost access: a ransomware attack removed access to most British Library online systems. British Library, 2024: https://www.bl.uk/stories/blogs/posts/learning-lessons-from-the-cyber-attack
-- AI invented dependencies: code LLMs generated 205,474 unique nonexistent package names. Spracklen et al., 2024: https://arxiv.org/abs/2406.10279
--->
-
-<div class="map-takeaway">Observed harms span validity, reproducibility, continuity, and AI-assisted development.</div>
-
-<div class="risk-map">
-  <div class="risk-callout top left"><strong>fMRI inference</strong><span>False positives reached <strong>70%</strong>.</span></div>
-  <div class="risk-callout top center"><strong>Genomic data</strong><span>Gene names were silently altered.</span></div>
-  <div class="risk-callout top right"><strong>Shared code</strong><span><strong>74%</strong> failed initial execution.</span></div>
-
-  <img src="assets/generated/public-evidence.png" alt="Six documented examples of research-software harm and exposure">
-
-  <div class="risk-callout bottom left"><strong>Clinical trials</strong><span>Invalid predictors reached patients.</span></div>
-  <div class="risk-callout bottom center"><strong>Research access</strong><span>Ransomware disrupted library systems.</span></div>
-  <div class="risk-callout bottom right"><strong>AI dependencies</strong><span><strong>205,474</strong> package names invented.</span></div>
 </div>
