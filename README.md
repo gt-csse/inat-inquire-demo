@@ -24,11 +24,12 @@ Prerequisites:
 - [Node.js/npm](https://nodejs.org/en/download)
 - [Python 3](https://www.python.org/downloads/)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
-- Optional for PowerPoint slide export:
+- For editable PowerPoint generation: `@oai/artifact-tool`, either installed
+  in the project or available from the Codex presentation runtime.
+- Optional for PDF slide export:
   [LibreOffice](https://www.libreoffice.org/download/download-libreoffice/).
-  Marp CLI uses the `soffice` binary for `.pptx` conversion; Microsoft
-  PowerPoint alone is not enough. On macOS with Homebrew:
-  `brew install --cask libreoffice`.
+  Native PowerPoint generation does not require LibreOffice. On macOS with
+  Homebrew: `brew install --cask libreoffice`.
 
 Create a workspace, clone both repositories into it, then run the demo:
 
@@ -56,6 +57,23 @@ The default password is for laptop-only local use. Hosted demos run with
 `DEMO_ENV=production`, an event-specific `DEMO_PASSWORD`, a random
 `DEMO_TOKEN_SECRET` with at least 32 characters, and explicit HTTPS portal
 origins in `DEMO_CORS_ORIGINS`.
+
+## Editable slide generation
+
+The production PowerPoint is generated from native editable objects rather
+than a rasterized or Marp-converted deck:
+
+```bash
+make slides-pptx
+```
+
+Edit `slides/build-slides.mjs`, then rebuild. The output is
+`slides/inat-inquire-demo.pptx`; visible copy remains editable as PowerPoint
+text boxes and the talk track remains editable in the Notes pane. Run
+`make slides` when the matching PDF and Word companion are also required.
+
+See [slides/README.md](slides/README.md) for the detailed authoring, dependency,
+QA, and editability workflow.
 
 ## Audience Tracks
 

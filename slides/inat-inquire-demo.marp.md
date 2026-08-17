@@ -1435,10 +1435,9 @@ style: |
     min-height: 142px;
     overflow: hidden;
     border: 1px solid rgba(0,48,87,0.14);
-    border-left: 5px solid var(--orange);
     border-radius: 9px;
     background: rgba(255,255,255,0.94);
-    padding: 10px 12px 10px 8px;
+    padding: 10px 12px;
     box-sizing: border-box;
   }
 
@@ -1462,16 +1461,18 @@ style: |
 
   .evidence-copy strong {
     color: var(--navy);
-    font-size: 17px;
+    font-size: 15px;
     line-height: 1.08;
+    white-space: nowrap;
   }
 
   .evidence-copy span {
     margin-top: 4px;
     color: var(--muted);
-    font-size: 13px;
+    font-size: 11px;
     line-height: 1.18;
     font-weight: 740;
+    white-space: nowrap;
   }
 
   .evidence-copy span strong {
@@ -1484,7 +1485,7 @@ style: |
   .evidence-copy small {
     margin-top: 6px;
     color: var(--blue);
-    font-size: 11px;
+    font-size: 9px;
     line-height: 1.1;
     font-weight: 850;
     text-transform: uppercase;
@@ -1512,7 +1513,6 @@ style: |
     min-height: 184px;
     overflow: hidden;
     border: 1px solid rgba(0,48,87,0.14);
-    border-top: 5px solid var(--orange);
     border-radius: 9px;
     background: rgba(255,255,255,0.94);
     padding: 0;
@@ -1899,6 +1899,175 @@ style: |
     margin-bottom: 4px;
   }
 
+  .risk-escalation {
+    width: 100%;
+    max-width: 1060px;
+    margin: 4px auto 0;
+    overflow: hidden;
+    border: 1px solid rgba(0,48,87,0.13);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.94);
+  }
+
+  .risk-escalation-header,
+  .risk-escalation-row {
+    display: grid;
+    grid-template-columns: 56px 350px minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .risk-escalation-header {
+    min-height: 31px;
+    border-bottom: 2px solid var(--gold);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .risk-escalation-row {
+    min-height: 74px;
+    border-left: 6px solid var(--risk-color);
+    border-bottom: 1px solid rgba(0,48,87,0.1);
+    box-sizing: border-box;
+  }
+
+  .risk-escalation-row:nth-child(odd) {
+    background: rgba(0,48,87,0.025);
+  }
+
+  .risk-escalation-row:last-child {
+    border-bottom: 0;
+  }
+
+  .risk-one { --risk-color: var(--orange); }
+  .risk-two { --risk-color: var(--blue); }
+  .risk-three { --risk-color: var(--gold); }
+  .risk-four { --risk-color: var(--green); }
+
+  .risk-marker {
+    display: inline-grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--risk-color);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .risk-escalation-row > .risk-marker {
+    justify-self: center;
+  }
+
+  .risk-category,
+  .risk-trigger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 14px;
+  }
+
+  .risk-category strong,
+  .risk-trigger strong {
+    color: var(--navy);
+    font-size: 15px;
+    line-height: 1.12;
+    white-space: nowrap;
+  }
+
+  .risk-category span,
+  .risk-trigger span {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11.5px;
+    line-height: 1.18;
+    font-weight: 720;
+    white-space: nowrap;
+  }
+
+  .ownership-boundary {
+    width: 100%;
+    max-width: 1060px;
+    margin: 14px auto 0;
+    border-radius: 7px;
+    background: rgba(0,79,159,0.07);
+    padding: 9px 16px;
+    box-sizing: border-box;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.32;
+    font-weight: 720;
+  }
+
+  .ownership-boundary strong {
+    color: var(--navy);
+  }
+
+  .ownership-boundary strong.csse {
+    color: var(--green);
+  }
+
+  .marker-card {
+    position: relative;
+    padding-left: 56px;
+    border-color: rgba(0,48,87,0.13);
+  }
+
+  .marker-card > .risk-marker {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    width: 34px;
+    height: 34px;
+    transform: translateY(-50%);
+    font-size: 16px;
+  }
+
+  .annotation-row.top .marker-card {
+    border-bottom-color: var(--risk-color);
+  }
+
+  .annotation-row:not(.top) .marker-card {
+    border-top-color: var(--risk-color);
+  }
+
+  .judgment-map {
+    width: 100%;
+    max-width: 820px;
+    margin: 18px auto 0;
+  }
+
+  .judgment-map > img {
+    display: block;
+    width: 100%;
+    height: 275px;
+    object-fit: contain;
+    margin: 0 auto 14px;
+  }
+
+  .judgment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 14px;
+  }
+
+  .judgment-grid .marker-card {
+    min-height: 56px;
+    border-top-color: var(--risk-color);
+  }
+
+  section:has(.risk-escalation) {
+    justify-content: flex-start;
+  }
+
+  section:has(.risk-escalation) h2 {
+    margin-bottom: 4px;
+  }
+
   .metric-strip {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1946,7 +2115,7 @@ style: |
 
 <div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence active"><b>✓</b>Evidence</span></div>
 
-## Research Harm Due to Software Is Real
+## The Harm Is Real: Software Failures Can Change Research Outcomes
 
 <!--
 - Use two or three examples suited to the audience; do not narrate every card.
@@ -1959,7 +2128,7 @@ style: |
 - AI invented dependencies: code LLMs generated 205,474 unique nonexistent package names. Spracklen et al., 2024: https://arxiv.org/abs/2406.10279
 -->
 
-<div class="map-takeaway">Research harm due to software is real—and documented in the public record.</div>
+<div class="map-takeaway">Research harm due to software is real and documented in the public record.</div>
 
 <div class="news-grid">
   <div class="news-card">
@@ -1992,86 +2161,49 @@ style: |
 
 <!-- _class: risk hazard-focus -->
 
-<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div> 
+<div class="thread"><span class="hazard active"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
 
-## Why Research-Software Risk Recurs
+## Some Software Risks Require Dedicated Engineering Support
 
 <!--
-Thread statement: Combine the scientific-assumption tension and recurring research conditions into one explanation of where software hazards come from.
+Thread statement: Introduce four concrete software-risk categories with numbered, color-coded markers that carry directly into the next slide.
 
-- Researchers narrow a problem deliberately to isolate a phenomenon. This is sound scientific reasoning, not a mistake.
-- The hazard emerges when software travels beyond the data, environment, user, scale, or purpose for which those assumptions were valid.
-- Root conditions are not failures of commitment or intelligence. They describe the normal environment in which research software is created.
-- Walk through the six visible conditions in the same order as the slide: evolving research, concentrated knowledge, limited capacity, temporary funding, prototype reuse, and AI acceleration.
-- The connecting lines matter: these conditions often interact, so a local assumption or temporary shortcut can become a system-level hazard as the research evolves.
-- Use the backup slide only when a different audience needs alternative conditions such as interdisciplinary communication, delivery pressure, changing dependencies, growing scale, or fragmented ownership.
-- Transition: "Those hazards do not remain inside the software. The research program bears the consequences."
+- The prior slide establishes that software failures can change research outcomes. This slide identifies when those concerns outgrow reasonable solo ownership.
+- Marker 1 — correctness and traceability: code or data transformations can materially shape results, rankings, or decisions and require independent evidence.
+- Marker 2 — reproducible execution: a workflow must run beyond one laptop or person, with its environment, dependencies, data, and steps captured.
+- Marker 3 — scale, reliability, and security: shared use means performance, recovery, access, and operations begin to interact.
+- Marker 4 — continuity and stewardship: use may outlast the original builder, grant, platform, or staffing model.
+- Research teams continue to lead the scientific questions, assumptions, methods, and interpretation.
+- Transition: "The same four markers show how CSSE applies proportionate engineering judgment to each category."
 -->
 
-<div class="map-takeaway">Risk appears when software outlives its original assumptions.</div>
+<div class="map-takeaway">Students and researchers should not have to solve system-level engineering problems alone.</div>
 
-<div class="risk-side-map">
-  <div class="risk-side-column left">
-    <div class="risk-side-card"><strong>Evolving research</strong><span>Data, methods, and questions change.</span></div>
-    <div class="risk-side-card"><strong>Concentrated knowledge</strong><span>Assumptions remain with one person.</span></div>
-    <div class="risk-side-card"><strong>Temporary funding</strong><span>Maintenance ends before use does.</span></div>
+<div class="risk-escalation">
+  <div class="risk-escalation-header"><span></span><span>Software risk</span><span>When it outgrows solo ownership</span></div>
+  <div class="risk-escalation-row risk-one">
+    <b class="risk-marker">1</b>
+    <div class="risk-category"><strong>Correctness &amp; traceability</strong><span>Code can shape results.</span></div>
+    <div class="risk-trigger"><strong>A defect could alter a conclusion or dataset.</strong><span>Requires evidence—not just a successful run.</span></div>
   </div>
-
-  <img src="assets/generated/risk-ecosystem.png" alt="Six connected sources of research-software risk">
-
-  <div class="risk-side-column right">
-    <div class="risk-side-card"><strong>Limited capacity</strong><span>Testing and verification stay incomplete.</span></div>
-    <div class="risk-side-card"><strong>Prototype reuse</strong><span>One-time code becomes infrastructure.</span></div>
-    <div class="risk-side-card"><strong>AI acceleration</strong><span>Production outruns validation.</span></div>
+  <div class="risk-escalation-row risk-two">
+    <b class="risk-marker">2</b>
+    <div class="risk-category"><strong>Reproducible execution</strong><span>Beyond one laptop.</span></div>
+    <div class="risk-trigger"><strong>Others must rerun and verify the workflow.</strong><span>Capture environment, data, dependencies, and steps.</span></div>
+  </div>
+  <div class="risk-escalation-row risk-three">
+    <b class="risk-marker">3</b>
+    <div class="risk-category"><strong>Scale, reliability &amp; security</strong><span>Shared use raises the stakes.</span></div>
+    <div class="risk-trigger"><strong>More users or data make failure consequential.</strong><span>Performance, recovery, access, and operations interact.</span></div>
+  </div>
+  <div class="risk-escalation-row risk-four">
+    <b class="risk-marker">4</b>
+    <div class="risk-category"><strong>Continuity &amp; stewardship</strong><span>People and funding change.</span></div>
+    <div class="risk-trigger"><strong>The software must outlast its original grant.</strong><span>Make ownership and maintenance explicit.</span></div>
   </div>
 </div>
 
----
-
-<!-- _class: risk harm-focus -->
-
-<div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm active"><b>!</b>Harm</span><span class="control"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
-
-## When Software Hazards Materialize, Research Bears the Cost.
-
-<!--
-Thread statement: Establish that the consequences are real, then show how AI increases the rate and reach of the exposure.
-
-- Keep the distinction clear: a hazard is the potential for failure; harm is the consequence to the research program.
-- Follow the four visible consequences: validity, reproducibility, research time, and continuity.
-- Validity: incorrect behavior can alter data, rankings, or conclusions.
-- Reproducibility: environments, workflows, or undocumented assumptions can prevent verification and extension.
-- Research time: diagnosis, repair, and rebuilding displace discovery.
-- Continuity: essential tools and concentrated knowledge can disappear when funding, people, or systems change.
-- AI is an amplifier rather than a separate category of harm: it increases the speed, volume, and apparent credibility of software that still requires validation.
-- Connect these categories back to the documented cases on Slide 2 rather than introducing new examples here.
-- Sources:
-  - Eklund et al. (2016), fMRI clusterwise inference false-positive rates: https://doi.org/10.1073/pnas.1602413113
-  - Trisovic et al. (2022), large-scale research-code execution study: https://doi.org/10.1038/s41597-022-01143-6
-  - Institute of Medicine (2012), invalid omics tests used in three Duke cancer trials: https://www.ncbi.nlm.nih.gov/books/NBK202172/
-  - Nature (2021), "Autocorrect errors in Excel still creating genomics headache": https://www.nature.com/articles/d41586-021-02211-4
-  - Abeysooriya et al. (2021), "Gene name errors: Lessons not learned": https://doi.org/10.1371/journal.pcbi.1008984
-  - British Library (2024), cyber-incident review: https://www.bl.uk/stories/blogs/posts/learning-lessons-from-the-cyber-attack
-  - Spracklen et al. (2025), "Threats to scientific software from over-reliance on AI code assistants": https://www.nature.com/articles/s43588-025-00845-2
-  - Spracklen et al. (2024), package hallucinations in code-generating LLMs: https://arxiv.org/abs/2406.10279
-- Transition: "The answer is not to slow down research or avoid AI. It is to pair scientific expertise and accelerated implementation with professional engineering judgment."
--->
-
-<div class="map-takeaway">Software failures become research consequences.</div>
-
-<div class="annotation-map corner">
-  <div class="annotation-row two top">
-    <div class="annotation-card"><strong>Validity</strong><span>Incorrect software can change conclusions.</span></div>
-    <div class="annotation-card"><strong>Reproducibility</strong><span>Results become difficult to verify or extend.</span></div>
-  </div>
-
-  <img src="assets/generated/research-harms.png" alt="Fragile research software causing invalid conclusions, irreproducibility, lost time, and lost investment">
-
-  <div class="annotation-row two">
-    <div class="annotation-card"><strong>Research time</strong><span>Diagnosis and rebuilding displace discovery.</span></div>
-    <div class="annotation-card"><strong>Continuity</strong><span>Essential tools and knowledge disappear.</span></div>
-  </div>
-</div>
+<div class="ownership-boundary"><strong>Escalation signal:</strong> the issue exceeds what one researcher can reasonably validate, operate, secure, or sustain.</div>
 
 ---
 
@@ -2079,16 +2211,15 @@ Thread statement: Establish that the consequences are real, then show how AI inc
 
 <div class="thread"><span class="hazard"><b>◇</b>Hazard</span><span class="harm"><b>!</b>Harm</span><span class="control active"><b>◆</b>Control</span><span class="evidence"><b>✓</b>Evidence</span></div>
 
-## CSSE Provides the Engineering Judgment Research Teams Need
+## CSSE Brings the Engineering Judgment Research Teams Need
 
 <!--
-Thread statement: CSSE's value is not a checklist of controls; it is practiced RSE judgment about which response is appropriate, sufficient, and sustainable.
+Thread statement: Use the matching numbered, color-coded markers to show how CSSE responds to each software-risk category with proportionate engineering judgment.
 
-- Follow the same four-part order as the previous slide: validity, reproducibility, research time, and continuity.
-- Validity: judgment identifies which assumptions and outputs are consequential enough to require tests, traceability, or independent verification.
-- Reproducibility: judgment determines what must be captured—and what evidence is sufficient—for others to verify and extend the work.
-- Research time: judgment right-sizes architecture, automation, testing, and recovery to the consequence, maturity, users, and expected lifespan.
-- Continuity: judgment anticipates the ownership, operational, documentation, and handoff model the research will actually need.
+- Marker 1 — protect validity: identify consequential assumptions and outputs, then decide what tests, traceability, review, or independent evidence is sufficient.
+- Marker 2 — enable reproducibility: determine what must be captured so others can rerun, verify, and extend the work.
+- Marker 3 — engineer reliable scale: right-size architecture, automation, testing, security, monitoring, and recovery to the consequence, maturity, users, and expected lifespan.
+- Marker 4 — sustain continuity: make ownership, documentation, maintenance, operations, and handoff explicit.
 - Researchers bring deep scientific and domain judgment. They are not expected to build broad engineering pattern recognition while remaining focused on discovery.
 - RSEs focus on exactly this work across projects and over time. That repeated exposure makes difficult-to-build engineering judgment available to the research team.
 - AI is valuable implementation leverage. It does not own the research context, accept accountability, negotiate tradeoffs, or decide what evidence is sufficient.
@@ -2098,17 +2229,14 @@ Thread statement: CSSE's value is not a checklist of controls; it is practiced R
 
 <div class="map-takeaway">Researchers bring scientific judgment. RSEs choose and right-size the engineering response.</div>
 
-<div class="annotation-map corner">
-  <div class="annotation-row two top">
-    <div class="annotation-card"><strong>Protect validity</strong><span>Identify which assumptions and results require evidence.</span></div>
-    <div class="annotation-card"><strong>Enable reproducibility</strong><span>Decide what must be captured to verify and extend.</span></div>
-  </div>
-
+<div class="judgment-map">
   <img src="assets/generated/csse-judgment.png" alt="Research discovery connected to durable software through proportionate engineering judgment">
 
-  <div class="annotation-row two">
-    <div class="annotation-card"><strong>Preserve research time</strong><span>Right-size prevention, automation, and recovery.</span></div>
-    <div class="annotation-card"><strong>Sustain continuity</strong><span>Design ownership and handoff for the expected lifespan.</span></div>
+  <div class="judgment-grid">
+    <div class="annotation-card marker-card risk-one"><b class="risk-marker">1</b><strong>Protect validity</strong><span>Validate consequential code paths and outputs.</span></div>
+    <div class="annotation-card marker-card risk-two"><b class="risk-marker">2</b><strong>Enable reproducibility</strong><span>Capture environments, data, dependencies, and steps.</span></div>
+    <div class="annotation-card marker-card risk-three"><b class="risk-marker">3</b><strong>Engineer reliable scale</strong><span>Right-size architecture, security, and recovery.</span></div>
+    <div class="annotation-card marker-card risk-four"><b class="risk-marker">4</b><strong>Sustain continuity</strong><span>Design ownership and handoff for the expected lifespan.</span></div>
   </div>
 </div>
 
@@ -2191,7 +2319,7 @@ Thread statement: Make the second act of judgment visible: CSSE chose the lighte
 <!--
 Thread statement: Make the third act of judgment visible: CSSE defines what evidence is sufficient for the next decision and prevents the team from overclaiming.
 
-- Read the cards as evidence for the three concerns introduced on Slide 6: consistency, freshness, and growth.
+- Read the cards as evidence for the three concerns introduced on Slide 5: consistency, freshness, and growth.
 - Consistency: precision at 10 asks how many of the first ten results are relevant; NDCG at 10 also rewards placing the most relevant results higher in the ranking. Together they establish a repeatable quality baseline.
 - Freshness: the 24-to-48-vector append demonstrates that new data can enter the same search workflow and become queryable without rebuilding the index from scratch.
 - Controlled growth: ingestion throughput, p95 search latency, repeatable recovery, and deployment comparisons make scaling behavior visible and revisitable.
@@ -2322,27 +2450,27 @@ Supporting information for discussion
 <div class="evidence-grid">
   <div class="evidence-block">
     <img src="assets/generated/public-evidence-blocks/fmri.png" alt="Brain scan illustrating invalid fMRI inference">
-    <div class="evidence-copy"><strong>fMRI inference</strong><span>Common methods produced false-positive rates up to <strong>70%</strong>.</span><small>PNAS · 2016</small></div>
+    <div class="evidence-copy"><strong>fMRI inference</strong><span>False-positive rates reached <strong>70%</strong>.</span><small>PNAS · 2016</small></div>
   </div>
   <div class="evidence-block">
     <img src="assets/generated/public-evidence-blocks/genomic-data.png" alt="Spreadsheet illustrating altered genomic data">
-    <div class="evidence-copy"><strong>Genomic data</strong><span>Spreadsheet behavior silently converted gene names into dates.</span><small>PLOS · 2021</small></div>
+    <div class="evidence-copy"><strong>Genomic data</strong><span>Excel converted gene names to dates.</span><small>PLOS · 2021</small></div>
   </div>
   <div class="evidence-block">
     <img src="assets/generated/public-evidence-blocks/shared-code.png" alt="Code window illustrating failed execution">
-    <div class="evidence-copy"><strong>Shared code</strong><span><strong>74%</strong> of tested R files failed initial execution.</span><small>Scientific Data · 2022</small></div>
+    <div class="evidence-copy"><strong>Shared code</strong><span><strong>74%</strong> of R files failed their first run.</span><small>Scientific Data · 2022</small></div>
   </div>
   <div class="evidence-block">
     <img src="assets/generated/public-evidence-blocks/clinical-trials.png" alt="Clinical test illustrating invalid predictors">
-    <div class="evidence-copy"><strong>Clinical trials</strong><span>Invalid omics-based predictors were used in three cancer trials.</span><small>IOM · 2012</small></div>
+    <div class="evidence-copy"><strong>Clinical trials</strong><span>Invalid predictors reached three trials.</span><small>IOM · 2012</small></div>
   </div>
   <div class="evidence-block">
     <img src="assets/generated/public-evidence-blocks/research-access.png" alt="Locked digital archive illustrating interrupted access">
-    <div class="evidence-copy"><strong>Research access</strong><span>Ransomware removed access to most British Library online systems.</span><small>British Library · 2024</small></div>
+    <div class="evidence-copy"><strong>Research access</strong><span>Ransomware blocked digital systems.</span><small>British Library · 2024</small></div>
   </div>
   <div class="evidence-block">
     <img src="assets/generated/public-evidence-blocks/ai-dependencies.png" alt="AI-generated code illustrating invented dependencies">
-    <div class="evidence-copy"><strong>AI dependencies</strong><span>Code models generated <strong>205,474</strong> unique nonexistent package names.</span><small>Spracklen et al. · 2024</small></div>
+    <div class="evidence-copy"><strong>AI dependencies</strong><span>Models invented <strong>205,474</strong> packages.</span><small>Spracklen et al. · 2024</small></div>
   </div>
 </div>
 
@@ -2386,7 +2514,7 @@ Supporting information for discussion
 ## Backup: Additional Condition-to-Hazard Mappings
 
 <!--
-- These six cards are alternatives for the six visible cards on Slide 3, not additional main-story content.
+- These six cards are alternative examples for tailoring the risk discussion, not a one-to-one replacement for the four main-story categories on Slide 3.
 - Select only the mappings relevant to the director or research program.
 - Interdisciplinary communication: requirements, provenance, and failure boundaries are interpreted differently across teams.
 - Publication and delivery pressure: short-term results defer validation, documentation, and maintainability.
