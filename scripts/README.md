@@ -36,7 +36,10 @@ it is missing. Use `make docker-build-base` to force a rebuild.
 | `validate.sh` | Checks JSON artifacts, Python and shell syntax, backend lint/tests/coverage, portal typecheck/build, and visual smoke when dependencies are installed. | Human operator and GitHub Actions. |
 | `seed-hf-inat-sample.py` | Lower-level sampler/uploader used by `live-ingest-batch.sh`. Resolves image bytes from iNaturalist Open Data and uploads to MinIO. | `live-ingest-batch.sh`; direct use only for debugging seed data. |
 | `check-coverage.py` | Fails validation when any covered backend source file falls below the configured coverage threshold. | `validate.sh`. |
-| `export-slides.sh` | Exports the Marp slide source and local slide assets to `slides/exports/inat-inquire-demo.pdf`. | Human operator when updating slides. |
+| [`../slides/build-slides.mjs`](../slides/build-slides.mjs) | Canonical slide source; builds the presentation from native editable PowerPoint objects and writes `slides/inat-inquire-demo.pptx`. | `export-slides.sh`; direct use for PowerPoint-only development. |
+| `build-slide-document.py` | Extracts visible text and speaker notes directly from the generated PowerPoint package and writes a template-styled, editable Word outline without slide images. It adds slide-specific improvement questions for the CSSE director only to the Word output. | `export-slides.sh`; direct use for Word companion development. |
+| `export-slides.sh` | Builds the native editable PowerPoint, converts it to `slides/exports/inat-inquire-demo.pdf`, and builds the editable Word companion; accepts `all`, `pdf`, `pptx`, or `docx`. | Human operator when updating slides. |
+| `requirements-slides.txt` | Pins the Python dependency used by the Word companion builder. | Human operator when slide-build Python dependencies are missing. |
 | `record-large.sh` | Optional large-run evidence capture: runs the source-pipeline benchmark and writes `recordings/metadata/benchmark/recorded-run-summary.json` for docs/slides/fallback evidence. | Human operator when refreshing benchmark evidence. |
 | `lib/common.sh` | Shared helper library for `.env` loading, tool checks, source-pipeline path resolution, Docker checks, and readiness polling. | Sourced by shell scripts. |
 

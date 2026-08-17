@@ -2,7 +2,7 @@ SHELL := /bin/bash
 .SHELLFLAGS := -euo pipefail -c
 .DEFAULT_GOAL := help
 
-.PHONY: help bootstrap demo pipeline portal batch-2 down validate docker-build-base docker-build-demo docker-run-demo slides record-large
+.PHONY: help bootstrap demo pipeline portal batch-2 down validate docker-build-base docker-build-demo docker-run-demo slides slides-pdf slides-pptx slides-docx record-large
 
 help:
 	@printf '%s\n' \
@@ -17,7 +17,10 @@ help:
 		'  make docker-build-base  Rebuild the source pipeline base image' \
 		'  make docker-build-demo  Build the optional Dockerized demo service' \
 		'  make docker-run-demo    Build and run the optional Dockerized demo service' \
-		'  make slides             Export the slide deck' \
+		'  make slides             Export PDF, editable PowerPoint, and Word companion' \
+		'  make slides-pdf         Export only the PDF deck' \
+		'  make slides-pptx        Export PowerPoint and refresh the Word companion' \
+		'  make slides-docx        Refresh Word from a newly built PowerPoint' \
 		'  make record-large       Refresh optional large-run benchmark evidence'
 
 bootstrap:
@@ -50,7 +53,16 @@ docker-run-demo:
 	docker compose -f docker-compose.demo.yml up --build demo
 
 slides:
-	./scripts/export-slides.sh
+	./scripts/export-slides.sh all
+
+slides-pdf:
+	./scripts/export-slides.sh pdf
+
+slides-pptx:
+	./scripts/export-slides.sh pptx
+
+slides-docx:
+	./scripts/export-slides.sh docx
 
 record-large:
 	./scripts/record-large.sh
